@@ -292,6 +292,7 @@ const SalesRepsManagementTable = () => {
         // title="Merchant Profile"
         visible={isViewModalVisible}
         onCancel={handleCloseViewModal}
+        width={700}
         footer={
           [
             // <Button key="close" type="primary" onClick={handleCloseViewModal}>
@@ -301,13 +302,13 @@ const SalesRepsManagementTable = () => {
         }
       >
         {selectedRecord && (
-          <div className="flex flex-row items-center gap-3 mt-8">
+          <div className="flex flex-row items-center justify-between gap-3 mt-8 mb-8">
             <img
               src={MarchantIcon}
               alt={selectedRecord.name}
-              className="w-214 h-214 rounded-full mx-auto"
+              className="w-214 h-214 rounded-full"
             />
-            <div className="flex flex-col gap-2 border border-primary rounded-md p-4">
+            <div className="flex flex-col gap-2 w-full border border-primary rounded-md p-4">
               <p className="text-[22px] font-bold text-primary">
                 Marchant Profile
               </p>

@@ -41,6 +41,7 @@ import SizeManagement from "../components/sizeManagement/SizeManagement";
 import ResetSuccess from "../Pages/Auth/ResetSuccess";
 import SetPassword from "../Pages/Auth/SetPassword";
 import CustomerManagement from "../components/customerManagement/customerManagement";
+import TierSystem from "../components/TierSystem/tierSystem";
 // import SalesRepsManagementTable from "../components/SalesRepsManagement/SalesRepsManagement";
 
 const router = createBrowserRouter([
@@ -66,12 +67,16 @@ const router = createBrowserRouter([
         element: <Retailer />,
       },
       {
-        path: "/salesRepsManage",
+        path: "/merchantManagement",
         element: <SaleRepsManagement />,
       },
       {
-        path: "/salesRepsManage/:id",
+        path: "/merchantManagement/:id",
         element: <ViewSalesReps />,
+      },
+      {
+        path: "/tierSystem",
+        element: <TierSystem />,
       },
       {
         path: "/customerManagement",

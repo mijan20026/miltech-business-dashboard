@@ -72,14 +72,19 @@ const Sidebar = () => {
       label: <Link to="/">Dashboard Overview</Link>,
     },
     {
-      key: "/salesRepsManage",
-      icon: renderIcon(Marchant, "/salesRepsManage"),
-      label: <Link to="/salesRepsManage">Merchant Management</Link>,
+      key: "/merchantManagement",
+      icon: renderIcon(Marchant, "/merchantManagement"),
+      label: <Link to="/merchantManagement">Merchant Management</Link>,
     },
     {
       key: "/customerManagement",
       icon: renderIcon(People, "/customerManagement"),
       label: <Link to="/customerManagement">Customer Management</Link>,
+    },
+    {
+      key: "/tierSystem",
+      icon: renderIcon(People, "/tierSystem"),
+      label: <Link to="/tierSystem">Point & Tier System</Link>,
     },
     {
       key: "/retailer",
