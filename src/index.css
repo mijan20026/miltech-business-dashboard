@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -27,12 +27,12 @@
 
 /* Hover effect - change text color to white and background gradient */
 .ant-menu-item:hover {
-  background: #3FAE6A !important;
+  background: #3fae6a !important;
   color: white !important; /* Text color to white */
 }
 
 .ant-menu-item-selected {
-  background: #3FAE6A !important;
+  background: #3fae6a !important;
   color: white !important;
   font-weight: bold;
   border-radius: 8px 0 0 8px !important;
@@ -49,7 +49,7 @@
 
 /* Ant Design Badge */
 .ant-badge .ant-badge-count {
-  background: #3FAE6A !important;
+  background: #3fae6a !important;
   color: white !important;
 }
 
@@ -70,7 +70,7 @@
 
 /* Custom table styling */
 .custom-table .ant-table-tbody > tr > td {
-  border-bottom: 1px solid #3FAE6A;
+  border-bottom: 1px solid #3fae6a;
   padding: 12px 16px !important;
   text-align: center !important;
   font-size: 12px !important;
@@ -78,11 +78,11 @@
 }
 
 .custom-table .ant-table-thead > tr > th {
-  border-bottom: 2px solid #3FAE6A;
+  border-bottom: 2px solid #3fae6a;
 }
 
 .custom-table .ant-table-thead > tr > th {
-  background-color: #3FAE6A !important;
+  background-color: #3fae6a !important;
   color: white !important;
   border-bottom: 2px solid #ddd;
 }
@@ -109,7 +109,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .custom-tooltip .ant-tooltip-inner {
-  background: #3FAE6A !important;
+  background: #3fae6a !important;
   color: white;
 }
 
@@ -170,7 +170,7 @@ input[type="number"]::-webkit-inner-spin-button {
   overflow-y: auto;
   padding: 0 0 0 5px;
   /* border-radius: 5%; */
-  border-top: 1px solid #3FAE6A;
+  border-top: 1px solid #3fae6a;
 }
 
 .sidebar-menu {
@@ -184,7 +184,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .sidebar-menu .ant-menu-item:hover {
-  background-color: #3FAE6A !important; /* Hover effect */
+  background-color: #3fae6a !important; /* Hover effect */
 }
 
 .sidebar-menu .ant-menu-item-selected {
