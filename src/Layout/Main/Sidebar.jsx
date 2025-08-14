@@ -92,6 +92,17 @@ const Sidebar = () => {
       label: <Link to="/subscription">Subscription Package</Link>,
     },
     {
+      key: "/promotionManagement",
+      icon: renderIcon(InventoryManagement, "/promotionManagement"),
+      label: <Link to="/promotionManagement">Promotion Management</Link>,
+    },
+    {
+      key: "/salesRepPortal",
+      icon: renderIcon(InventoryManagement, "/salesRepPortal"),
+      label: <Link to="/salesRepPortal">Sales Rep Portal</Link>,
+    },
+    // End of Burger King
+    {
       key: "/retailer",
       icon: renderIcon(RetailersManagement, "/retailer"),
       label: <Link to="/retailer">Retailer Management</Link>,

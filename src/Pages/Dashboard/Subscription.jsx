@@ -9,6 +9,7 @@ import {
 import Swal from "sweetalert2";
 import FeaturedInput from "../../components/common/PackageFeatureInput";
 import GradientButton from "../../components/common/GradiantButton";
+import SubscriptionHeadingIcon from "../../assets/subscription-heading.png";
 
 const PackagesPlans = () => {
   // Default packages data
@@ -18,7 +19,7 @@ const PackagesPlans = () => {
       title: "Basic Plan",
       description:
         "Perfect for startups and small businesses looking to establish their online presence.",
-      price: 29.99,
+      price: 0,
       duration: "1 month",
       features: [
         "5 User Accounts",
@@ -26,15 +27,17 @@ const PackagesPlans = () => {
         "24/7 Support",
         "10GB Storage",
         "Email Integration",
+        "API not accessible",
       ],
       popular: false,
+      active: true,
     },
     {
       id: 2,
-      title: "Professional Plan",
+      title: "Gold Plan",
       description:
         "Ideal for growing businesses with advanced features and expanded capabilities.",
-      price: 89.99,
+      price: 20,
       duration: "6 months",
       features: [
         "25 User Accounts",
@@ -45,13 +48,14 @@ const PackagesPlans = () => {
         "API Access",
       ],
       popular: true,
+      active: false,
     },
     {
       id: 3,
-      title: "Enterprise Plan",
+      title: "Premium Plan",
       description:
         "Comprehensive solution for large organizations with extensive needs and premium support.",
-      price: 199.99,
+      price: 40,
       duration: "1 year",
       features: [
         "Unlimited User Accounts",
@@ -62,6 +66,7 @@ const PackagesPlans = () => {
         "Custom API Development",
       ],
       popular: false,
+      active: true,
     },
   ];
 
@@ -76,6 +81,14 @@ const PackagesPlans = () => {
   useEffect(() => {
     setPackages(defaultPackages);
   }, []);
+
+  // Turn off/on package
+  const togglePackageStatus = (id) => {
+    setPackages((prev) =>
+      prev.map((pkg) => (pkg.id === id ? { ...pkg, active: !pkg.active } : pkg))
+    );
+    message.success("Package status updated");
+  };
 
   // Show modal for adding or editing package
   const showModal = (pkg = null) => {
@@ -167,16 +180,25 @@ const PackagesPlans = () => {
 
   return (
     <div className="py-6 px-4">
-      <div className="flex justify-between items-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-800">Package Plans</h2>
-        <GradientButton
+      <div className="flex flex-col justify-center items-center mb-8">
+        <p className="bg-primary px-[12px] py-[4px] text-white rounded-3xl mb-4">
+          Pricing Plan
+        </p>
+        <h2 className="text-[48px] font-semibold text-secondary mb-[20px]">
+          Plans for all sizes
+        </h2>
+        <p className="text-[20px] font-normal mb-[50px]">
+          Simple, transparent pricing that grows with you. Try any plan free for
+          30 days.
+        </p>
+        {/* <GradientButton
           type="primary"
           icon={<PlusOutlined />}
           className=" text-white px-5 py-2 h-auto rounded-lg shadow-lg hover:bg-[#012F60] transition-all flex items-center"
           onClick={() => showModal()}
         >
           Add Package
-        </GradientButton>
+        </GradientButton> */}
       </div>
 
       {packages.length === 0 ? (
@@ -194,37 +216,45 @@ const PackagesPlans = () => {
               className={getCardStyle(pkg)}
               extra={null}
             >
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-2xl font-bold text-gray-800">
-                  {pkg.title}
-                </h3>
+              <div className="flex justify-end mb-2">
                 <div className="flex gap-2">
                   <Button
                     icon={<EditOutlined />}
                     onClick={() => showModal(pkg)}
-                    className="text-blue-600 border-blue-300 hover:text-blue-800 hover:border-blue-500"
+                    className="text-gray-800 border-gray-800 hover:text-primary hover:border-primary"
                   />
-                  <Button
+                  {/* <Button
                     icon={<DeleteOutlined />}
                     onClick={() => handleDelete(pkg.id)}
                     className="text-red-600 border-red-300 hover:text-red-800 hover:border-red-500"
-                  />
+                  /> */}
                 </div>
               </div>
 
-              <div className="mb-6">
-                <span className="text-primary font-bold text-4xl">
-                  ${pkg.price}
-                </span>
-                <span className="text-gray-500 ml-2">/ {pkg.duration}</span>
+              <div className="flex flex-col justify-center items-center mb-4">
+                <img
+                  src={SubscriptionHeadingIcon}
+                  alt="Subscription Icon"
+                  className="w-[40px] h-[40px] mb-4"
+                />
+                <h3 className="text-[20px] font-semibold text-primary mb-[8px]">
+                  {pkg.title}
+                </h3>
+                <div className="mb-2">
+                  <span className="text-secondary font-semibold text-[48px]">
+                    ${pkg.price}/mth
+                  </span>
+                  {/* <span className="text-gray-500 ml-2">/ {pkg.duration}</span> */}
+                </div>
+                <p className="text-[16px] font-normal text-center text-[#667085]">
+                  {pkg.description}
+                </p>
               </div>
 
-              <p className="text-gray-600 mb-6">{pkg.description}</p>
-
               <div className="bg-gray-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-gray-700 mb-2">
+                {/* <h4 className="font-semibold text-gray-700 mb-2">
                   Features Include:
-                </h4>
+                </h4> */}
                 <List
                   size="small"
                   dataSource={pkg.features}
@@ -238,6 +268,19 @@ const PackagesPlans = () => {
                   )}
                 />
               </div>
+              {/* <Button className="w-full mt-12 border border-primary hover:!bg-primary hover:!text-white">
+                Turn Off
+              </Button> */}
+              <Button
+                className={`w-full mt-12 border ${
+                  pkg.active
+                    ? "border-primary hover:!bg-primary hover:!text-white"
+                    : "border-gray-400 text-gray-400 hover:!bg-gray-400 hover:!text-white"
+                }`}
+                onClick={() => togglePackageStatus(pkg.id)}
+              >
+                {pkg.active ? "Turn Off" : "Turn On"}
+              </Button>
             </Card>
           ))}
         </div>
@@ -318,7 +361,11 @@ const PackagesPlans = () => {
           </Form.Item> */}
 
           <div className="flex justify-end gap-3 mt-6">
-            <Button onClick={handleCancel} size="large">
+            <Button
+              onClick={handleCancel}
+              size="large"
+              className="border border-primary hover:!border-primary hover:!text-primary"
+            >
               Cancel
             </Button>
             <Button

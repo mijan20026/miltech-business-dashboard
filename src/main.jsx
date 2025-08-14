@@ -7,11 +7,10 @@ import global_en from "./Translation/en/en.global.json";
 import global_es from "./Translation/es/es.global.json";
 import "./index.css";
 import { Provider } from "react-redux";
-import store from "./redux/store.js"
-import { Toaster } from 'react-hot-toast';
-import {UserProvider} from "./provider/User.jsx"
+import store from "./redux/store.js";
+import { Toaster } from "react-hot-toast";
+import { UserProvider } from "./provider/User.jsx";
 import { ConfigProvider } from "antd";
-
 
 i18next.init({
   interpolation: {
@@ -36,11 +35,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       theme={{
         token: {
           colorPrimary: "#4E9DAB",
-          colorBorder: "#4E9DAB", // Default border color
-          colorText: "rgba(0, 0, 0, 0.88)", // Default text color
-          colorTextPlaceholder: "#bfbfbf", // Placeholder color
-          colorBgContainer: "#ffffff", // Background color
-          controlOutline: "rgba(232, 80, 91, 0.1)", // Focus outline color (based on your primary color)
+          colorBorder: "#3fae6a", // Default border color
+          // colorText: "rgba(0, 0, 0, 0.88)", // Default text color
+          // colorTextPlaceholder: "#bfbfbf", // Placeholder color
+          // colorBgContainer: "#ffffff", // Background color
+          // controlOutline: "rgba(232, 80, 91, 0.1)", // Focus outline color (based on your primary color)
         },
         components: {
           Input: {

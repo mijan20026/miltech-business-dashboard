@@ -42,6 +42,8 @@ import ResetSuccess from "../Pages/Auth/ResetSuccess";
 import SetPassword from "../Pages/Auth/SetPassword";
 import CustomerManagement from "../components/customerManagement/customerManagement";
 import TierSystem from "../components/TierSystem/tierSystem";
+import PromotionManagement from "../components/promotionManagement/PromotionManagement";
+import SalesRepPortal from "../components/salesRepPortal/SalesRepPortal";
 // import SalesRepsManagementTable from "../components/SalesRepsManagement/SalesRepsManagement";
 
 const router = createBrowserRouter([
@@ -55,9 +57,36 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/merchantManagement",
+        element: <SaleRepsManagement />,
+      },
+      {
+        path: "/customerManagement",
+        element: <CustomerManagement />,
+      },
+      {
+        path: "/tierSystem",
+        element: <TierSystem />,
+      },
+      {
+        path: "/subsciption",
+        element: <SubscriptionTable />,
+      },
+      {
+        path: "/promotionManagement",
+        element: <PromotionManagement />,
+      },
+      {
+        path: "/SalesRepPortal",
+        element: <SalesRepPortal />,
+      },
+
+      // Burger King end
+      {
         path: "/orderManagement",
         element: <OrderManagementContainer />,
       },
+
       {
         path: "/salesManagement",
         element: <SalesManagement />,
@@ -66,29 +95,14 @@ const router = createBrowserRouter([
         path: "/retailer",
         element: <Retailer />,
       },
-      {
-        path: "/merchantManagement",
-        element: <SaleRepsManagement />,
-      },
+
       {
         path: "/merchantManagement/:id",
         element: <ViewSalesReps />,
       },
       {
-        path: "/tierSystem",
-        element: <TierSystem />,
-      },
-      {
-        path: "/customerManagement",
-        element: <CustomerManagement />,
-      },
-      {
         path: "/loyaltyProgram",
         element: <LoyaltyProgram />,
-      },
-      {
-        path: "/subsciption",
-        element: <SubscriptionTable />,
       },
       {
         path: "/category",
