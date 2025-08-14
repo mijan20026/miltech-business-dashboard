@@ -11,7 +11,7 @@ const ChangePassword = () => {
 
   return (
     <div className="">
-      <div className="flex flex-col justify-start pl-12 shadow-xl">
+      <div className="flex flex-col justify-start pl-20 pr-20 pt-5 pb-10 shadow-xl">
         <h2 className="text-2xl font-bold mb-5">Update Password</h2>
         <div>
           <Form
@@ -22,7 +22,7 @@ const ChangePassword = () => {
               remember: true,
             }}
             style={{
-              width: "80%",
+              // width: "80%",
             }}
             onFinish={handleChangePassword}
           >
