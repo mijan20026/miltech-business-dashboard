@@ -87,6 +87,11 @@ const Sidebar = () => {
       label: <Link to="/tierSystem">Point & Tier System</Link>,
     },
     {
+      key: "/subscription",
+      icon: renderIcon(InventoryManagement, "/subscription"),
+      label: <Link to="/subscription">Subscription Package</Link>,
+    },
+    {
       key: "/retailer",
       icon: renderIcon(RetailersManagement, "/retailer"),
       label: <Link to="/retailer">Retailer Management</Link>,
@@ -121,11 +126,6 @@ const Sidebar = () => {
     //   icon: renderIcon(InventoryManagement, "/inventory"),
     //   label: <Link to="/inventory">Inventory Management</Link>,
     // },
-    {
-      key: "/subscription",
-      icon: renderIcon(InventoryManagement, "/subscription"),
-      label: <Link to="/subscription">Subscription Package</Link>,
-    },
     // {
     //   key: "/loyaltyProgram",
     //   icon: renderIcon(LoyaltyProgram, "/loyaltyProgram"),
