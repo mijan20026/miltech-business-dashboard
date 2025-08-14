@@ -181,7 +181,10 @@ const SalesRepsManagementTable = () => {
         //   </div>
         // </div>
 
-        <div className="flex gap-0 justify-between align-middle py-[7px] px-[15px] border border-primary rounded-md">
+        <div
+          className="flex gap-0 justify-between align-middle py-[7px] px-[15px] border border-primary rounded-md"
+          style={{ alignItems: "center" }}
+        >
           <Tooltip title="View Details">
             <button
               onClick={() => showViewModal(record)}

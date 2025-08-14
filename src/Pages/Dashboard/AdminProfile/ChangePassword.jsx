@@ -10,20 +10,19 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className="flex gap-20 shadow-xl rounded-lg">
-      <div className="w-1/2 mx-auto">
-        <h2 className="text-2xl font-bold mb-5 text-center">Update Password</h2>
+    <div className="">
+      <div className="flex flex-col justify-start pl-12 shadow-xl">
+        <h2 className="text-2xl font-bold mb-5">Update Password</h2>
         <div>
           <Form
             form={form}
             layout="vertical"
-            className="lg:ms-[50px] pe-[30px] mt-[30px]"
+            // className="lg:ms-[50px] pe-[30px] mt-[30px]"
             initialValues={{
               remember: true,
             }}
             style={{
-              width: "100%",
-              height: "fit-content",
+              width: "80%",
             }}
             onFinish={handleChangePassword}
           >

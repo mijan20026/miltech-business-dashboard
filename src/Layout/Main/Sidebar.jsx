@@ -106,6 +106,11 @@ const Sidebar = () => {
       icon: renderIcon(InventoryManagement, "/auditLogs"),
       label: <Link to="/auditLogs">Audit Logs</Link>,
     },
+    {
+      key: "/loginCredentials",
+      icon: renderIcon(InventoryManagement, "/loginCredentials"),
+      label: <Link to="/loginCredentials">login Credentials</Link>,
+    },
     // End of Burger King
     {
       key: "/retailer",

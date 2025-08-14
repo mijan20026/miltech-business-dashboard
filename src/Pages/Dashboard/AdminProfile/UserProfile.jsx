@@ -24,6 +24,7 @@ const UserProfile = () => {
   const dummyData = {
     username: "Md Jowel Ahmed",
     email: "mdjowelahmed924@gmail.com",
+    contact: "+8801234567890",
     address: "1234 Main St, Springfield, USA",
     language: "english",
     profileImage: "https://i.ibb.co.com/Qjf2hxsf/images-2.jpg",
@@ -135,7 +136,7 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="flex justify-center items-center shadow-xl rounded-lg">
+    <div className="flex justify-center items-center shadow-xl rounded-lg pt-5 pb-12">
       <Form
         form={form}
         layout="vertical"
@@ -143,10 +144,10 @@ const UserProfile = () => {
         onFinish={onFinish}
         encType="multipart/form-data"
       >
-        <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-x-16 w-full gap-y-7">
+        <div className="flex flex-col gap-5">
           {/* Profile Image */}
-          <div className="col-span-2 flex justify-center">
-            <Form.Item label="Profile Image" style={{ marginBottom: 0 }}>
+          <div className="col-span-2 flex justify-start items-center gap-5">
+            <Form.Item style={{ marginBottom: 0 }}>
               <Upload
                 name="avatar"
                 showUploadList={false}
@@ -164,12 +165,13 @@ const UserProfile = () => {
                 )}
               </Upload>
             </Form.Item>
+            <h2 className="text-[24px] font-bold">Sabbir Ahmed</h2>
           </div>
 
           {/* Username */}
           <Form.Item
             name="username"
-            label="Username"
+            label="Full Name"
             style={{ marginBottom: 0 }}
             rules={[{ required: true, message: "Please enter your username" }]}
           >
@@ -207,8 +209,26 @@ const UserProfile = () => {
             />
           </Form.Item>
 
-          {/* Address */}
+          {/* Username */}
           <Form.Item
+            name="contact"
+            label="Contact Number"
+            style={{ marginBottom: 0 }}
+            rules={[{ required: true, message: "Please enter your username" }]}
+          >
+            <Input
+              placeholder="Enter your Username"
+              style={{
+                height: "45px",
+                backgroundColor: "#f7f7f7",
+                borderRadius: "8px",
+                outline: "none",
+              }}
+            />
+          </Form.Item>
+
+          {/* Address */}
+          {/* <Form.Item
             name="address"
             label="Address"
             style={{ marginBottom: 0 }}
@@ -223,10 +243,10 @@ const UserProfile = () => {
                 outline: "none",
               }}
             />
-          </Form.Item>
+          </Form.Item> */}
 
           {/* Language */}
-          <Form.Item
+          {/* <Form.Item
             name="language"
             label="Language"
             style={{ marginBottom: 0 }}
@@ -245,14 +265,19 @@ const UserProfile = () => {
               <Option value="french">French</Option>
               <Option value="spanish">Spanish</Option>
             </Select>
-          </Form.Item>
+          </Form.Item> */}
 
           {/* Update Profile Button */}
           <div className="col-span-2 text-end mt-6">
             <Form.Item>
               {/* Option 1: Use standard Ant Design Button */}
-              <Button type="primary" htmlType="submit" block style={{height:40}}>
-                Update Profile
+              <Button
+                type="primary"
+                htmlType="submit"
+                block
+                style={{ height: 40 }}
+              >
+                Save Changes
               </Button>
 
               {/* Option 2: Use GradientButton with onClick handler */}

@@ -45,6 +45,7 @@ import TierSystem from "../components/TierSystem/tierSystem";
 import PromotionManagement from "../components/promotionManagement/PromotionManagement";
 import SalesRepPortal from "../components/salesRepPortal/SalesRepPortal";
 import AuditLogs from "../components/auditLogs/AuditLogs";
+import LoginCredentials from "../components/loginCredentials/LoginCredentials";
 // import SalesRepsManagementTable from "../components/SalesRepsManagement/SalesRepsManagement";
 
 const router = createBrowserRouter([
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       {
         path: "/AuditLogs",
         element: <AuditLogs />,
+      },
+      {
+        path: "/LoginCredentials",
+        element: <LoginCredentials />,
       },
 
       // Burger King end
