@@ -7,7 +7,7 @@ const TermsAndCondition = () => {
   const editor = useRef(null);
 
   // Using a single state for both content and saved content
-const [termsContent, setTermsContent] = useState(`
+  const [termsContent, setTermsContent] = useState(`
     <h2 style="font-size: 24px; font-weight: bold; color: #333;">Terms & Conditions</h2>
     <p style="font-size: 16px; color: #555;">Welcome to our website. If you continue to browse and use this website, you are agreeing to comply with and be bound by the following terms and conditions of use.</p><br />
     <h3 style="font-size: 20px; font-weight: bold; color: #444;">1. General Terms</h3>
@@ -17,7 +17,6 @@ const [termsContent, setTermsContent] = useState(`
     <h3 style="font-size: 20px; font-weight: bold; color: #444;">3. Disclaimer</h3>
     <p style="font-size: 16px; color: #555;">The information contained in this website is for general information purposes only. We endeavor to keep the information up to date and correct.</p>
 `);
-
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
