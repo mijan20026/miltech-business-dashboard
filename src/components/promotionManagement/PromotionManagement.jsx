@@ -1,7 +1,8 @@
+"use client";
 import React, { useState } from "react";
-import { Table, Button, Modal, Tooltip, Switch } from "antd";
-import { FaTrash } from "react-icons/fa";
-import { IoEyeSharp } from "react-icons/io5";
+import { Table, Button, Switch, Form, Input, Tooltip } from "antd";
+import { FaEdit } from "react-icons/fa";
+import { IoEyeSharp, IoArrowBack } from "react-icons/io5";
 import Swal from "sweetalert2";
 import MarchantIcon from "../../assets/marchant.png";
 import NewCampaign from "../promotionManagement/components/NewCampaing.jsx";
@@ -45,26 +46,27 @@ const PromotionManagement = () => {
       customerReach: 1000,
       customerSegment: "New Customers",
       discountPercentage: 20,
-      startDate: "2023-03-01",
-      endDate: "2023-03-31",
+      startDate: "2023-11-21",
+      endDate: "2023-12-31",
       status: "Active",
+    },
+    {
+      id: 2,
+      promotionName: "Summer Offer",
+      promotionType: "Cashback",
+      customerReach: 500,
+      customerSegment: "Returning Customers",
+      discountPercentage: 15,
+      startDate: "2023-06-01",
+      endDate: "2023-06-30",
+      status: "Inactive",
     },
   ]);
 
-  const [isViewModalVisible, setIsViewModalVisible] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(null);
   const [isNewCampaignModalVisible, setIsNewCampaignModalVisible] =
     useState(false);
-  const [selectedRecord, setSelectedRecord] = useState(null);
-
-  const showViewModal = (record) => {
-    setSelectedRecord(record);
-    setIsViewModalVisible(true);
-  };
-
-  const handleCloseViewModal = () => {
-    setIsViewModalVisible(false);
-    setSelectedRecord(null);
-  };
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
 
   const handleAddCampaign = (newCampaign) => {
     setData((prev) => [
@@ -81,12 +83,27 @@ const PromotionManagement = () => {
     });
   };
 
-  const columns2 = [
-    { title: "SL", dataIndex: "orderId", key: "orderId" },
-    { title: "Date", dataIndex: "date", key: "date" },
-    { title: "Reward", dataIndex: "quantity", key: "quantity" },
-    { title: "Points Used", dataIndex: "amount", key: "amount" },
-  ];
+  const handleEditSave = (values) => {
+    setData((prev) =>
+      prev.map((item) =>
+        item.id === selectedRecord.id ? { ...item, ...values } : item
+      )
+    );
+    setIsEditModalVisible(false);
+    setSelectedRecord(null); // <-- reset selectedRecord
+    Swal.fire({
+      icon: "success",
+      title: "Updated!",
+      text: "Your campaign has been updated successfully.",
+      timer: 1500,
+      showConfirmButton: false,
+    });
+  };
+
+  const handleEditCancel = () => {
+    setIsEditModalVisible(false);
+    setSelectedRecord(null); // <-- reset selectedRecord
+  };
 
   const columns = [
     { title: "SL", dataIndex: "id", key: "id", align: "center" },
@@ -156,40 +173,27 @@ const PromotionManagement = () => {
       align: "center",
       render: (_, record) => (
         <div className="py-[10px] px-[10px] border border-primary rounded-md">
-          <div className="flex gap-2 justify-between align-middle" style={{ alignItems: "center" }}>
+          <div
+            className="flex gap-2 justify-between align-middle"
+            style={{ alignItems: "center" }}
+          >
             <Tooltip title="View Details">
               <button
-                onClick={() => showViewModal(record)}
+                onClick={() => setSelectedRecord(record)}
                 className="text-primary hover:text-green-700 text-xl"
               >
                 <IoEyeSharp />
               </button>
             </Tooltip>
-            <Tooltip title="Delete">
+            <Tooltip title="Edit">
               <button
                 onClick={() => {
-                  Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, delete it!",
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                      setData(data.filter((item) => item.id !== record.id));
-                      Swal.fire({
-                        title: "Deleted!",
-                        text: "Your record has been deleted.",
-                        icon: "success",
-                      });
-                    }
-                  });
+                  setSelectedRecord(record); // Important: set record before opening modal
+                  setIsEditModalVisible(true);
                 }}
-                className="text-red-500 hover:text-red-700 text-md"
+                className="text-primary hover:text-green-700 text-[17px]"
               >
-                <FaTrash />
+                <FaEdit />
               </button>
             </Tooltip>
             <Switch
@@ -238,11 +242,43 @@ const PromotionManagement = () => {
     },
   ];
 
+  // Full-page view
+  if (selectedRecord && !isEditModalVisible) {
+    return (
+      <div className="">
+        <div className="flex items-center mb-4 gap-6">
+          <Button
+            icon={<IoArrowBack />}
+            onClick={() => setSelectedRecord(null)}
+            className="mb-4"
+          ></Button>
+          <div>
+            <h1 className="text-[24px] font-bold">Campaign Details</h1>
+            <p className="text-[16px] font-normal mt-2">
+              View and manage all the details of your active campaigns.
+            </p>
+          </div>
+        </div>
+
+        <Table
+          dataSource={data}
+          columns={columns}
+          pagination={{ pageSize: 10 }}
+          bordered={false}
+          size="small"
+          rowClassName="custom-row"
+          components={components}
+          className="custom-table"
+        />
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <div className="">
       <div className="flex justify-between items-center mb-4">
         <div>
-          <h1 className="text-[24px] font-bold">Promotion Management</h1>
+          <h1 className="text-[24px] font-bold">Campaigns List</h1>
           <p className="text-[16px] font-normal mt-2">
             View and manage all your active campaigns in one place.
           </p>
@@ -267,71 +303,68 @@ const PromotionManagement = () => {
         className="custom-table"
       />
 
-      {/* View Details Modal */}
-      <Modal
-        visible={isViewModalVisible}
-        onCancel={handleCloseViewModal}
-        width={700}
-        footer={null}
-      >
-        {selectedRecord && (
-          <div>
-            <div className="flex flex-row justify-between items-start gap-3 mt-8">
-              <img
-                src={MarchantIcon}
-                alt={selectedRecord.name}
-                className="w-214 h-214 rounded-full"
-              />
-              <div className="flex flex-col gap-2 border border-primary rounded-md p-4 w-full">
-                <p className="text-[22px] font-bold text-primary">
-                  Customer Profile
-                </p>
-                <p>
-                  <strong>Name:</strong> {selectedRecord.name}
-                </p>
-                <p>
-                  <strong>Business Name:</strong> {selectedRecord.businessName}
-                </p>
-                <p>
-                  <strong>Email:</strong> {selectedRecord.email}
-                </p>
-                <p>
-                  <strong>Phone:</strong> {selectedRecord.phone}
-                </p>
-                <p>
-                  <strong>Location:</strong> {selectedRecord.location}
-                </p>
-                <p>
-                  <strong>Total Sales:</strong> {selectedRecord.sales}
-                </p>
-                <p>
-                  <strong>Status:</strong> {selectedRecord.status}
-                </p>
+      {/* Edit Campaign Modal */}
+      {isEditModalVisible && selectedRecord && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-md w-[600px]">
+            <Form
+              layout="vertical"
+              initialValues={selectedRecord}
+              onFinish={handleEditSave}
+            >
+              <Form.Item
+                name="promotionName"
+                label="Promotion Name"
+                rules={[{ required: true, message: "Please enter name" }]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item name="promotionType" label="Promotion Type">
+                <Input />
+              </Form.Item>
+              <Form.Item name="customerReach" label="Customer Reach">
+                <Input type="number" />
+              </Form.Item>
+              <Form.Item name="customerSegment" label="Customer Segment">
+                <Input />
+              </Form.Item>
+              <Form.Item name="discountPercentage" label="Discount Percentage">
+                <Input type="number" />
+              </Form.Item>
+              <Form.Item name="startDate" label="Start Date">
+                <Input type="date" />
+              </Form.Item>
+              <Form.Item name="endDate" label="End Date">
+                <Input type="date" />
+              </Form.Item>
+              <div className="flex gap-2 mt-4">
+                <Button
+                  type="default"
+                  className="flex-1"
+                  onClick={handleEditCancel} // <-- use the new handler
+                >
+                  Cancel
+                </Button>
+                <Button type="primary" htmlType="submit" className="flex-1">
+                  Save Changes
+                </Button>
               </div>
-            </div>
-            <Table
-              columns={columns2}
-              dataSource={data}
-              rowKey="orderId"
-              pagination={{ pageSize: 5 }}
-              className="mt-6"
-            />
+            </Form>
           </div>
-        )}
-      </Modal>
+        </div>
+      )}
 
       {/* New Campaign Modal */}
-      <Modal
-        visible={isNewCampaignModalVisible}
-        onCancel={() => setIsNewCampaignModalVisible(false)}
-        footer={null}
-        width={1000}
-      >
-        <NewCampaign
-          onSave={handleAddCampaign}
-          onCancel={() => setIsNewCampaignModalVisible(false)}
-        />
-      </Modal>
+      {isNewCampaignModalVisible && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-md w-[1000px]">
+            <NewCampaign
+              onSave={handleAddCampaign}
+              onCancel={() => setIsNewCampaignModalVisible(false)}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

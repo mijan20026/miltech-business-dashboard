@@ -1,11 +1,20 @@
 import React, { useState } from "react";
-import { Table, Button, Modal, Form, Input, Tooltip, Switch } from "antd";
+import {
+  Table,
+  Button,
+  Modal,
+  Form,
+  Input,
+  Tooltip,
+  Switch,
+  Select,
+} from "antd";
 import { useNavigate } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
-import { IoEyeSharp } from "react-icons/io5";
-import Swal from "sweetalert2";
-import MarchantIcon from "../../assets/marchant.png";
 import { EditOutlined } from "@ant-design/icons";
+import Swal from "sweetalert2";
+
+const { Option } = Select;
 
 const components = {
   header: {
@@ -50,6 +59,7 @@ const LoginCredentials = () => {
       phone: "+1234567890",
       location: "New York",
       businessName: "Alice's Store",
+      role: "Admin",
     },
     {
       id: 2,
@@ -62,34 +72,28 @@ const LoginCredentials = () => {
       phone: "+9876543210",
       location: "California",
       businessName: "John's Shop",
-    },
-    {
-      id: 3,
-      name: "John Doe",
-      image: "https://i.ibb.co/8gh3mqPR/Ellipse-48-1.jpg",
-      email: "john@email.com",
-      retailer: 3,
-      sales: "$500",
-      status: "Active",
-      phone: "+9876543210",
-      location: "California",
-      businessName: "John's Shop",
+      role: "User",
     },
   ]);
+
+  const [roles, setRoles] = useState(["Admin", "User"]); // Default roles
 
   const [isViewModalVisible, setIsViewModalVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [viewForm] = Form.useForm();
 
-  // Add Role Modal state
   const [isRoleModalVisible, setIsRoleModalVisible] = useState(false);
   const [roleForm] = Form.useForm();
 
+  const [isUserModalVisible, setIsUserModalVisible] = useState(false);
+  const [userForm] = Form.useForm();
+
   const navigate = useNavigate();
 
+  // View/Edit User Modal
   const showViewModal = (record) => {
     setSelectedRecord(record);
-    viewForm.setFieldsValue(record); // Pre-fill form with selected data
+    viewForm.setFieldsValue(record);
     setIsViewModalVisible(true);
   };
 
@@ -98,7 +102,6 @@ const LoginCredentials = () => {
     setSelectedRecord(null);
   };
 
-  // Handle update save
   const handleUpdateRecord = () => {
     viewForm.validateFields().then((values) => {
       setData((prev) =>
@@ -117,10 +120,10 @@ const LoginCredentials = () => {
     });
   };
 
-  // Handle role submission
+  // Add Role
   const handleAddRole = () => {
     roleForm.validateFields().then((values) => {
-      console.log("New Role:", values.roleName);
+      setRoles((prev) => [...prev, values.roleName]); // Add role to dropdown
       Swal.fire({
         title: "Role Added!",
         text: `Role "${values.roleName}" has been successfully added.`,
@@ -130,6 +133,27 @@ const LoginCredentials = () => {
       });
       roleForm.resetFields();
       setIsRoleModalVisible(false);
+    });
+  };
+
+  // Add New User
+  const handleAddUser = () => {
+    userForm.validateFields().then((values) => {
+      const newUser = {
+        id: data.length + 1,
+        ...values,
+        status: "Active",
+      };
+      setData((prev) => [...prev, newUser]);
+      Swal.fire({
+        title: "User Added!",
+        text: `${values.name} has been added successfully.`,
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      userForm.resetFields();
+      setIsUserModalVisible(false);
     });
   };
 
@@ -156,6 +180,7 @@ const LoginCredentials = () => {
       align: "center",
     },
     { title: "Total Sales", dataIndex: "sales", key: "sales", align: "center" },
+    { title: "Role", dataIndex: "role", key: "role", align: "center" },
     { title: "Status", dataIndex: "status", key: "status", align: "center" },
     {
       title: "Action",
@@ -259,7 +284,7 @@ const LoginCredentials = () => {
         <div className="flex gap-5">
           <Button
             type="primary"
-            onClick={() => navigate("/login-credentials/create")}
+            onClick={() => setIsUserModalVisible(true)}
             className="bg-primary !text-white hover:!text-secondary hover:!bg-white hover:!border-primary px-[30px] py-[25px] rounded-full text-[18px] font-bold"
           >
             Add New User
@@ -285,7 +310,7 @@ const LoginCredentials = () => {
         className="custom-table"
       />
 
-      {/* View & Update Modal */}
+      {/* View/Edit User Modal */}
       <Modal
         visible={isViewModalVisible}
         onCancel={handleCloseViewModal}
@@ -294,32 +319,39 @@ const LoginCredentials = () => {
         okText="Save Changes"
       >
         {selectedRecord && (
-          <div className="flex flex-row items-center justify-between gap-3 mt-8 mb-8">
-            <div className="flex flex-col gap-2 w-full border border-primary rounded-md p-4">
-              <p className="text-[22px] font-bold text-primary">
-                Login Credentials
-              </p>
-              <Form form={viewForm} layout="vertical">
-                <Form.Item name="name" label="Name">
-                  <Input />
-                </Form.Item>
-                <Form.Item name="businessName" label="Business Name">
-                  <Input />
-                </Form.Item>
-                <Form.Item name="email" label="Email">
-                  <Input />
-                </Form.Item>
-                <Form.Item name="phone" label="Phone">
-                  <Input />
-                </Form.Item>
-                <Form.Item name="location" label="Location">
-                  <Input />
-                </Form.Item>
-                <Form.Item name="sales" label="Total Sales">
-                  <Input />
-                </Form.Item>
-              </Form>
-            </div>
+          <div className="flex flex-col gap-2 w-full border border-primary rounded-md p-4 mt-8 mb-8">
+            <p className="text-[22px] font-bold text-primary">
+              Login Credentials
+            </p>
+            <Form form={viewForm} layout="vertical">
+              <Form.Item name="name" label="Name">
+                <Input />
+              </Form.Item>
+              <Form.Item name="businessName" label="Business Name">
+                <Input />
+              </Form.Item>
+              <Form.Item name="email" label="Email">
+                <Input />
+              </Form.Item>
+              <Form.Item name="phone" label="Phone">
+                <Input />
+              </Form.Item>
+              <Form.Item name="location" label="Location">
+                <Input />
+              </Form.Item>
+              <Form.Item name="sales" label="Total Sales">
+                <Input />
+              </Form.Item>
+              <Form.Item name="role" label="Role">
+                <Select>
+                  {roles.map((role) => (
+                    <Option key={role} value={role}>
+                      {role}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Form>
           </div>
         )}
       </Modal>
@@ -339,6 +371,70 @@ const LoginCredentials = () => {
             rules={[{ required: true, message: "Please enter role name" }]}
           >
             <Input placeholder="Enter role name" />
+          </Form.Item>
+        </Form>
+      </Modal>
+
+      {/* Add New User Modal */}
+      <Modal
+        title="Add New User"
+        visible={isUserModalVisible}
+        onCancel={() => setIsUserModalVisible(false)}
+        onOk={handleAddUser}
+        okText="Add User"
+        width={700}
+      >
+        <Form form={userForm} layout="vertical">
+          <Form.Item
+            name="name"
+            label="Name"
+            rules={[{ required: true, message: "Please enter name" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="businessName"
+            label="Business Name"
+            rules={[{ required: true, message: "Please enter business name" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="email"
+            label="Email"
+            rules={[{ required: true, message: "Please enter email" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="phone"
+            label="Phone"
+            rules={[{ required: true, message: "Please enter phone" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="location"
+            label="Location"
+            rules={[{ required: true, message: "Please enter location" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item name="sales" label="Total Sales">
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="role"
+            label="Role"
+            rules={[{ required: true, message: "Please select a role" }]}
+          >
+            <Select placeholder="Select role">
+              {roles.map((role) => (
+                <Option key={role} value={role}>
+                  {role}
+                </Option>
+              ))}
+            </Select>
           </Form.Item>
         </Form>
       </Modal>

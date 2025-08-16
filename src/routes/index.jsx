@@ -46,6 +46,8 @@ import PromotionManagement from "../components/promotionManagement/PromotionMana
 import SalesRepPortal from "../components/salesRepPortal/SalesRepPortal";
 import AuditLogs from "../components/auditLogs/AuditLogs";
 import LoginCredentials from "../components/loginCredentials/LoginCredentials";
+import ReportingAnalytics from "../components/reportingAnalytics/ReportingAnalytics";
+import PushNotifications from "../components/pushNotifications/PushNotifications";
 // import SalesRepsManagementTable from "../components/SalesRepsManagement/SalesRepsManagement";
 
 const router = createBrowserRouter([
@@ -89,6 +91,14 @@ const router = createBrowserRouter([
       {
         path: "/LoginCredentials",
         element: <LoginCredentials />,
+      },
+      {
+        path: "/reportingAnalytics",
+        element: <ReportingAnalytics />,
+      },
+      {
+        path: "/pushNotification",
+        element: <PushNotifications />,
       },
 
       // Burger King end

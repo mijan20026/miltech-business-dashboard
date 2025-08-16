@@ -13,6 +13,11 @@ import {
   SubscriptionManagement,
   OrderManagement,
   People,
+  PromotionManagement,
+  SalesRep,
+  AuditLog,
+  loginCredentials,
+  Rewords,
 } from "../../components/common/Svg"; // Import the relevant SVGs
 import image4 from "../../assets/image4.png"; // Logo image
 
@@ -87,61 +92,72 @@ const Sidebar = () => {
       label: <Link to="/tierSystem">Point & Tier System</Link>,
     },
     {
+      key: "/reportingAnalytics",
+      icon: renderIcon(Rewords, "/reportingAnalytics"),
+      label: <Link to="/reportingAnalytics">Reporting & Analytics</Link>,
+    },
+    {
       key: "/subscription",
-      icon: renderIcon(InventoryManagement, "/subscription"),
+      icon: renderIcon(SubscriptionManagement, "/subscription"),
       label: <Link to="/subscription">Subscription Package</Link>,
     },
     {
       key: "/promotionManagement",
-      icon: renderIcon(InventoryManagement, "/promotionManagement"),
+      icon: renderIcon(PromotionManagement, "/promotionManagement"),
       label: <Link to="/promotionManagement">Promotion Management</Link>,
     },
     {
       key: "/salesRepPortal",
-      icon: renderIcon(InventoryManagement, "/salesRepPortal"),
+      icon: renderIcon(SalesRep, "/salesRepPortal"),
       label: <Link to="/salesRepPortal">Sales Rep Portal</Link>,
     },
     {
       key: "/auditLogs",
-      icon: renderIcon(InventoryManagement, "/auditLogs"),
+      icon: renderIcon(AuditLog, "/auditLogs"),
       label: <Link to="/auditLogs">Audit Logs</Link>,
     },
     {
       key: "/loginCredentials",
-      icon: renderIcon(InventoryManagement, "/loginCredentials"),
-      label: <Link to="/loginCredentials">login Credentials</Link>,
+      icon: renderIcon(loginCredentials, "/loginCredentials"),
+      label: <Link to="/loginCredentials">Login Credentials</Link>,
+    },
+    {
+      key: "/pushNotification",
+      icon: renderIcon(loginCredentials, "/pushNotification"),
+      label: <Link to="/pushNotification">Push Notifications</Link>,
     },
     // End of Burger King
-    {
-      key: "/retailer",
-      icon: renderIcon(RetailersManagement, "/retailer"),
-      label: <Link to="/retailer">Retailer Management</Link>,
-    },
-    {
-      key: "/orderManagement",
-      icon: renderIcon(OrderManagement, "/orderManagement"),
-      label: <Link to="/orderManagement">Orders Management</Link>,
-    },
-    {
-      key: "/category",
-      icon: renderIcon(SubscriptionManagement, "/category"),
-      label: <Link to="/category">Category Management</Link>,
-    },
-    {
-      key: "/products",
-      icon: renderIcon(SubscriptionManagement, "/products"),
-      label: <Link to="/products">Products Management</Link>,
-    },
-    {
-      key: "/color",
-      icon: renderIcon(SubscriptionManagement, "/color"),
-      label: <Link to="/color">Color Management</Link>,
-    },
-    {
-      key: "/size",
-      icon: renderIcon(SubscriptionManagement, "/size"),
-      label: <Link to="/size">Size Management</Link>,
-    },
+
+    // {
+    //   key: "/retailer",
+    //   icon: renderIcon(RetailersManagement, "/retailer"),
+    //   label: <Link to="/retailer">Retailer Management</Link>,
+    // },
+    // {
+    //   key: "/orderManagement",
+    //   icon: renderIcon(OrderManagement, "/orderManagement"),
+    //   label: <Link to="/orderManagement">Orders Management</Link>,
+    // },
+    // {
+    //   key: "/category",
+    //   icon: renderIcon(SubscriptionManagement, "/category"),
+    //   label: <Link to="/category">Category Management</Link>,
+    // },
+    // {
+    //   key: "/products",
+    //   icon: renderIcon(SubscriptionManagement, "/products"),
+    //   label: <Link to="/products">Products Management</Link>,
+    // },
+    // {
+    //   key: "/color",
+    //   icon: renderIcon(SubscriptionManagement, "/color"),
+    //   label: <Link to="/color">Color Management</Link>,
+    // },
+    // {
+    //   key: "/size",
+    //   icon: renderIcon(SubscriptionManagement, "/size"),
+    //   label: <Link to="/size">Size Management</Link>,
+    // },
     // {
     //   key: "/inventory",
     //   icon: renderIcon(InventoryManagement, "/inventory"),
@@ -152,11 +168,11 @@ const Sidebar = () => {
     //   icon: renderIcon(LoyaltyProgram, "/loyaltyProgram"),
     //   label: <Link to="/loyaltyProgram">Loyalty Program</Link>,
     // },
-    {
-      key: "/subsciption",
-      icon: renderIcon(SubscriptionManagement, "/subsciption"),
-      label: <Link to="/subsciption">Subscription Management</Link>,
-    },
+    // {
+    //   key: "/subsciption",
+    //   icon: renderIcon(SubscriptionManagement, "/subsciption"),
+    //   label: <Link to="/subsciption">Subscription Management</Link>,
+    // },
 
     // {
     //   key: "category",
@@ -170,11 +186,11 @@ const Sidebar = () => {
     //   ],
     // },
 
-    {
-      key: "/user",
-      icon: renderIcon(SubscriptionManagement, "/user"),
-      label: <Link to="/user">User Management</Link>,
-    },
+    // {
+    //   key: "/user",
+    //   icon: renderIcon(SubscriptionManagement, "/user"),
+    //   label: <Link to="/user">User Management</Link>,
+    // },
     {
       key: "subMenuSetting",
       icon: renderIcon(Settings, "subMenuSetting"),
@@ -184,14 +200,14 @@ const Sidebar = () => {
           key: "/profile",
           label: <Link to="/profile">Update Profile</Link>,
         },
-        {
-          key: "/faq",
-          label: <Link to="/faq">FAQ </Link>,
-        },
-        {
-          key: "/contact",
-          label: <Link to="/contact">Contact Us</Link>,
-        },
+        // {
+        //   key: "/faq",
+        //   label: <Link to="/faq">FAQ </Link>,
+        // },
+        // {
+        //   key: "/contact",
+        //   label: <Link to="/contact">Contact Us</Link>,
+        // },
         // {
         //   key: "/about",
         //   label: <Link to="/about">About Us </Link>,

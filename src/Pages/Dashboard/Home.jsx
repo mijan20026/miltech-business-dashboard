@@ -18,6 +18,9 @@ import OrderTable from "../../components/home/OrderTable";
 import SalesLeaderBoard from "../../components/home/SalesLeaderBoard";
 import HomeCard from "../../components/home/HomeCard";
 import { Marchant } from "../../components/common/Svg";
+import { People } from "../../components/common/Svg";
+import { Pending } from "../../components/common/Svg";
+import { SubscriptionManagement } from "../../components/common/Svg";
 
 ChartJS.register(
   CategoryScale,
@@ -124,7 +127,8 @@ const Home = () => {
                   <h2 className="text-center text-[16px] font-semibold mb-1">
                     Total Merchants
                   </h2>
-                  <h3 className="text-secondary text-[24px] text-center font-semibold">
+                  <h3 className="text-secondary text-[24px] text-center font-semibold flex items-center gap-3">
+                    <Marchant className="w-[20px] h-[20px] text-secondary" />
                     23
                   </h3>
                 </div>
@@ -137,7 +141,8 @@ const Home = () => {
                   <h2 className="text-center text-[16px] font-semibold mb-1">
                     Total Customers
                   </h2>
-                  <h3 className="text-secondary text-[24px] text-center font-semibold">
+                  <h3 className="text-secondary text-[24px] text-center font-semibold flex items-center gap-3">
+                    <People className="w-[20px] h-[20px] text-secondary" />
                     500
                   </h3>
                 </div>
@@ -150,8 +155,8 @@ const Home = () => {
                   <h2 className="text-center text-[16px] font-semibold mb-1">
                     Pending Approvals
                   </h2>
-                  <h3 className="text-secondary text-[24px] text-center font-semibold">
-                    5
+                  <h3 className="text-secondary text-[24px] text-center font-semibold flex items-center gap-3">
+                    <Pending className="w-[20px] h-[20px] text-secondary" />3
                   </h3>
                 </div>
               </div>
@@ -163,7 +168,8 @@ const Home = () => {
                   <h2 className="text-center text-[16px] font-semibold mb-1">
                     Subscription Revenue
                   </h2>
-                  <h3 className="text-secondary text-[24px] text-center font-semibold">
+                  <h3 className="text-secondary text-[24px] text-center font-semibold flex items-center gap-3">
+                    <SubscriptionManagement className="w-[20px] h-[20px] text-secondary" />
                     $4,250.75
                   </h3>
                 </div>

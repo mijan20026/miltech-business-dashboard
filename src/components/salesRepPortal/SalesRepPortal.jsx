@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Table, Button, Modal, Tooltip } from "antd";
+import { Table, Modal, Tooltip } from "antd";
 import Swal from "sweetalert2";
-import MarchantIcon from "../../assets/marchant.png";
 import NewCampaign from "../promotionManagement/components/NewCampaing.jsx";
+import { CopyOutlined } from "@ant-design/icons";
 
 const components = {
   header: {
@@ -40,8 +40,9 @@ const SalesRepPortal = () => {
       phoneNumber: "123-456-7890",
       email: "example@mail.com",
       paymentStatus: "Paid",
-      actionStatus: "Inactive", // Initially inactive
+      actionStatus: "Inactive",
       status: "Active",
+      statusProgress: 0, // 0 = only Acknowledge, 1 = Activate, 2 = Generate Token
     },
   ]);
 
@@ -51,10 +52,19 @@ const SalesRepPortal = () => {
   const [isCashTokenModalVisible, setIsCashTokenModalVisible] = useState(false);
   const [generatedToken, setGeneratedToken] = useState("");
   const [selectedRecord, setSelectedRecord] = useState(null);
+  const [referralID, setReferralID] = useState("ANDREW856 D");
 
+  // Show Acknowledge Cash Payment modal
   const showViewModal = (record) => {
     setSelectedRecord(record);
     setIsViewModalVisible(true);
+
+    // Step progress to 1 (Activate User enabled)
+    setData((prevData) =>
+      prevData.map((item) =>
+        item.id === record.id ? { ...item, statusProgress: 1 } : item
+      )
+    );
   };
 
   const handleCloseViewModal = () => {
@@ -65,7 +75,12 @@ const SalesRepPortal = () => {
   const handleAddCampaign = (newCampaign) => {
     setData((prev) => [
       ...prev,
-      { id: prev.length + 1, status: "Active", ...newCampaign },
+      {
+        id: prev.length + 1,
+        status: "Active",
+        statusProgress: 0,
+        ...newCampaign,
+      },
     ]);
     setIsNewCampaignModalVisible(false);
     Swal.fire({
@@ -84,7 +99,9 @@ const SalesRepPortal = () => {
     setIsCashTokenModalVisible(true);
   };
 
+  // Then, update handleConfirmToken:
   const handleConfirmToken = () => {
+    setReferralID(generatedToken); // set token as referral ID
     Swal.fire({
       icon: "success",
       title: "Token Generated!",
@@ -119,6 +136,7 @@ const SalesRepPortal = () => {
               ? {
                   ...item,
                   actionStatus: isCurrentlyActive ? "Inactive" : "Active",
+                  statusProgress: 2, // Generate Token enabled
                 }
               : item
           )
@@ -134,13 +152,6 @@ const SalesRepPortal = () => {
       }
     });
   };
-
-  const columns2 = [
-    { title: "SL", dataIndex: "orderId", key: "orderId" },
-    { title: "Date", dataIndex: "date", key: "date" },
-    { title: "Reward", dataIndex: "quantity", key: "quantity" },
-    { title: "Points Used", dataIndex: "amount", key: "amount" },
-  ];
 
   const columns = [
     { title: "SL", dataIndex: "id", key: "id", align: "center" },
@@ -179,7 +190,12 @@ const SalesRepPortal = () => {
             <Tooltip title="Acknowledge cash payment">
               <button
                 onClick={() => showViewModal(record)}
-                className="text-secondary border border-primary rounded-md px-2 py-1 bg-[#D7F4DE]"
+                disabled={record.statusProgress > 0}
+                className={`text-secondary border border-primary rounded-md px-2 py-1 bg-[#D7F4DE] ${
+                  record.statusProgress > 0
+                    ? "opacity-50 cursor-not-allowed"
+                    : ""
+                }`}
               >
                 Acknowledge cash payment
               </button>
@@ -194,7 +210,12 @@ const SalesRepPortal = () => {
             >
               <button
                 onClick={() => handleToggleUserStatus(record)}
-                className="text-secondary border border-primary rounded-md px-2 py-1 bg-[#D7F4DE]"
+                disabled={record.statusProgress < 1}
+                className={`text-secondary border border-primary rounded-md px-2 py-1 bg-[#D7F4DE] ${
+                  record.statusProgress < 1
+                    ? "opacity-50 cursor-not-allowed"
+                    : ""
+                }`}
               >
                 {record.actionStatus === "Active"
                   ? "Deactivate User"
@@ -205,7 +226,12 @@ const SalesRepPortal = () => {
             <Tooltip title="Generate a cash token">
               <button
                 onClick={handleGenerateToken}
-                className="text-secondary border border-primary rounded-md px-2 py-1 bg-[#D7F4DE]"
+                disabled={record.statusProgress < 2}
+                className={`text-secondary border border-primary rounded-md px-2 py-1 bg-[#D7F4DE] ${
+                  record.statusProgress < 2
+                    ? "opacity-50 cursor-not-allowed"
+                    : ""
+                }`}
               >
                 Generate a cash token
               </button>
@@ -215,6 +241,28 @@ const SalesRepPortal = () => {
       ),
     },
   ];
+
+  const handleCopyReferralID = () => {
+    if (!referralID) return;
+    navigator.clipboard
+      .writeText(referralID)
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Copied!",
+          text: `Referral ID "${referralID}" has been copied.`,
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "Failed to copy referral ID.",
+        });
+      });
+  };
 
   return (
     <div>
@@ -228,8 +276,10 @@ const SalesRepPortal = () => {
         <div className="flex flex-col items-center gap-1 border border-secondary rounded-md px-12 py-2">
           <p>Your Referral ID</p>
           <div className="flex items-center gap-2">
-            <p className="font-bold text-[16px]">ANDREW856 D</p>
-            <button>Copy</button>
+            <p className="font-bold text-[16px]">{referralID}</p>
+            <button onClick={handleCopyReferralID}>
+              <CopyOutlined />
+            </button>
           </div>
         </div>
       </div>

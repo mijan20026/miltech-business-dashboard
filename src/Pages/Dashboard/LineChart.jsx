@@ -203,7 +203,7 @@ const LineChart = () => {
           color: "#181818",
           padding: window.innerWidth < 768 ? 10 : 32,
           callback: function (value) {
-            return `$${value.toLocaleString()}`;
+            return `$${value.toLocaleString()}K`;
           },
           font: {
             size: (context) => {

@@ -56,11 +56,11 @@ const OrderTable = () => {
   return (
     <div className="w-full">
       <div className="flex flex-col sm:flex-row justify-between mb-2 items-start sm:items-center gap-2 sm:gap-0">
-        <h1 className="text-lg sm:text-xl md:text-xl font-bold text-secondary">
+        <h1 className="text-lg sm:text-xl md:text-xl font-bold text-secondary mb-2">
           Recent Activity
         </h1>
       </div>
-      <div className="overflow-x-auto rounded-lg pr-4 pl-4 pb-6 pt-5 shadow-md">
+      <div className="overflow-x-auto border rounded-lg pr-4 pl-4 pb-6 pt-3 shadow-md">
         <Table
           dataSource={dataSource}
           columns={columns}

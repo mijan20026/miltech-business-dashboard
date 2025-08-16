@@ -52,7 +52,7 @@ const NewCampaign = ({ onSave, onCancel }) => {
               name="promotionName"
               rules={[{ required: true }]}
             >
-              <Input className="px-3 py-3" placeholder="Enter Promotion Name" />
+              <Input className="px-3" placeholder="Enter Promotion Name" />
             </Form.Item>
 
             {/* ✅ Change: Use Select for Promotion Type */}
@@ -79,7 +79,7 @@ const NewCampaign = ({ onSave, onCancel }) => {
               <InputNumber
                 min={1}
                 style={{ width: "100%" }}
-                className="px-3 py-2"
+                className="px-3"
                 placeholder="Enter Customer Reach"
               />
             </Form.Item>
@@ -89,7 +89,7 @@ const NewCampaign = ({ onSave, onCancel }) => {
               rules={[{ required: true }]}
             >
               <Input
-                className="px-3 py-3"
+                className="px-3"
                 placeholder="Enter Customer Segment"
               />
             </Form.Item>
@@ -105,7 +105,7 @@ const NewCampaign = ({ onSave, onCancel }) => {
                 min={1}
                 max={100}
                 style={{ width: "100%" }}
-                className="px-3 py-2"
+                className="px-3"
                 placeholder="Enter Discount Percentage"
               />
             </Form.Item>
@@ -114,7 +114,7 @@ const NewCampaign = ({ onSave, onCancel }) => {
               name="dateRange"
               rules={[{ required: true }]}
             >
-              <RangePicker style={{ width: "100%" }} className="px-3 py-3" />
+              <RangePicker style={{ width: "100%" }} className="px-3" />
             </Form.Item>
           </div>
         </div>

@@ -22,8 +22,8 @@ const UserProfile = () => {
 
   // Dummy data (to be used as the default data)
   const dummyData = {
-    username: "Md Jowel Ahmed",
-    email: "mdjowelahmed924@gmail.com",
+    username: "Md Mijanur Rahman",
+    email: "mijan17634@gmail.com",
     contact: "+8801234567890",
     address: "1234 Main St, Springfield, USA",
     language: "english",
