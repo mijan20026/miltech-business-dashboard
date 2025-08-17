@@ -64,7 +64,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/merchantManagement",
+        path: "/sellManagement",
         element: <SaleRepsManagement />,
       },
       {

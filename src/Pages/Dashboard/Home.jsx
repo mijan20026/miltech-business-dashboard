@@ -5,6 +5,7 @@ import { MdArrowUpward, MdOutlineHome } from "react-icons/md";
 import { PiHouseLine } from "react-icons/pi";
 import { Bar } from "react-chartjs-2";
 import LineChart from "./LineChart";
+import BarChart from "./BarChart";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -17,10 +18,13 @@ import {
 import OrderTable from "../../components/home/OrderTable";
 import SalesLeaderBoard from "../../components/home/SalesLeaderBoard";
 import HomeCard from "../../components/home/HomeCard";
-import { Marchant } from "../../components/common/Svg";
+import { Marchant, Rewords } from "../../components/common/Svg";
 import { People } from "../../components/common/Svg";
 import { Pending } from "../../components/common/Svg";
 import { SubscriptionManagement } from "../../components/common/Svg";
+import { Sales } from "../../components/common/Svg";
+import { Points } from "../../components/common/Svg";
+import PieChart from "./PieChart";
 
 ChartJS.register(
   CategoryScale,
@@ -104,11 +108,15 @@ const Home = () => {
         </div>
       </div> */}
 
-      <div className="flex gap-10   rounded-lg">
+      <div className="flex gap-10 rounded-lg">
         {/* Line Chart Section */}
-        <div className=" flex-1 w-2/3 border border-primary bg-[#D7F4DE]  rounded-lg p-6 ">
-          <LineChart />
+        <div className=" flex-1 w-2/3 border border-primary bg-[#D7F4DE]  rounded-lg p-6">
+          <PieChart />
         </div>
+        <div className=" flex-1 w-2/3 border border-primary bg-[#D7F4DE]  rounded-lg p-6">
+          <BarChart />
+        </div>
+
         {/* Card Section */}
         <div className=" w-1/3 bg-[#D7F4DE] border border-primary p-6 rounded-lg">
           <div className="flex justify-between items-center mb-4 text-white">
@@ -125,11 +133,11 @@ const Home = () => {
               <div className="flex items-center">
                 <div className="flex flex-col items-baseline">
                   <h2 className="text-center text-[16px] font-semibold mb-1">
-                    Total Merchants
+                    Today's Sales
                   </h2>
                   <h3 className="text-secondary text-[24px] text-center font-semibold flex items-center gap-3">
-                    <Marchant className="w-[20px] h-[20px] text-secondary" />
-                    23
+                    <Sales className="w-[20px] h-[20px] text-secondary" />
+                    $4,250.75
                   </h3>
                 </div>
               </div>
@@ -139,11 +147,11 @@ const Home = () => {
               <div className="flex items-center">
                 <div className="flex flex-col items-baseline">
                   <h2 className="text-center text-[16px] font-semibold mb-1">
-                    Total Customers
+                    Total Members
                   </h2>
                   <h3 className="text-secondary text-[24px] text-center font-semibold flex items-center gap-3">
                     <People className="w-[20px] h-[20px] text-secondary" />
-                    500
+                    50
                   </h3>
                 </div>
               </div>
@@ -153,10 +161,11 @@ const Home = () => {
               <div className="flex items-center">
                 <div className="flex flex-col items-baseline">
                   <h2 className="text-center text-[16px] font-semibold mb-1">
-                    Pending Approvals
+                    Points Issued Today
                   </h2>
                   <h3 className="text-secondary text-[24px] text-center font-semibold flex items-center gap-3">
-                    <Pending className="w-[20px] h-[20px] text-secondary" />3
+                    <Points className="w-[20px] h-[20px] text-secondary" />
+                    8,500
                   </h3>
                 </div>
               </div>
@@ -166,11 +175,11 @@ const Home = () => {
               <div className="flex items-center">
                 <div className="flex flex-col items-baseline">
                   <h2 className="text-center text-[16px] font-semibold mb-1">
-                    Subscription Revenue
+                    Rewards Redeemed
                   </h2>
                   <h3 className="text-secondary text-[24px] text-center font-semibold flex items-center gap-3">
-                    <SubscriptionManagement className="w-[20px] h-[20px] text-secondary" />
-                    $4,250.75
+                    <Rewords className="w-[20px] h-[20px] text-secondary" />
+                    23
                   </h3>
                 </div>
               </div>

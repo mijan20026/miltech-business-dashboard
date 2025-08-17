@@ -20,7 +20,7 @@ ChartJS.register(
   Legend
 );
 
-const LineChart = () => {
+const BarChart = () => {
   const [chartHeight, setChartHeight] = useState("200px");
 
   // Effect to update chart height based on screen size
@@ -124,4 +124,4 @@ const LineChart = () => {
   );
 };
 
-export default LineChart;
+export default BarChart;

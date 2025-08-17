@@ -77,9 +77,9 @@ const Sidebar = () => {
       label: <Link to="/">Dashboard Overview</Link>,
     },
     {
-      key: "/merchantManagement",
-      icon: renderIcon(Marchant, "/merchantManagement"),
-      label: <Link to="/merchantManagement">Merchant Management</Link>,
+      key: "/sellManagement",
+      icon: renderIcon(Marchant, "/sellManagement"),
+      label: <Link to="/sellManagement">Sell Management</Link>,
     },
     {
       key: "/customerManagement",
