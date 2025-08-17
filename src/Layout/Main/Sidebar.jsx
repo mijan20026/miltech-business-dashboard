@@ -18,6 +18,7 @@ import {
   AuditLog,
   loginCredentials,
   Rewords,
+  Sales,
 } from "../../components/common/Svg"; // Import the relevant SVGs
 import image4 from "../../assets/image4.png"; // Logo image
 
@@ -78,18 +79,18 @@ const Sidebar = () => {
     },
     {
       key: "/sellManagement",
-      icon: renderIcon(Marchant, "/sellManagement"),
+      icon: renderIcon(Sales, "/sellManagement"),
       label: <Link to="/sellManagement">Sell Management</Link>,
+    },
+    {
+      key: "/loyaltyProgram",
+      icon: renderIcon(People, "/loyaltyProgram"),
+      label: <Link to="/loyaltyProgram">Loyalty Program</Link>,
     },
     {
       key: "/customerManagement",
       icon: renderIcon(People, "/customerManagement"),
       label: <Link to="/customerManagement">Customer Management</Link>,
-    },
-    {
-      key: "/tierSystem",
-      icon: renderIcon(People, "/tierSystem"),
-      label: <Link to="/tierSystem">Point & Tier System</Link>,
     },
     {
       key: "/reportingAnalytics",

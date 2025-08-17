@@ -72,7 +72,7 @@ const router = createBrowserRouter([
         element: <CustomerManagement />,
       },
       {
-        path: "/tierSystem",
+        path: "/loyaltyProgram",
         element: <TierSystem />,
       },
       {

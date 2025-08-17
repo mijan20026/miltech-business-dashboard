@@ -183,7 +183,10 @@ const SalesRepsManagementTable = () => {
             ))}
           </Select>
         </div>
-        <Button type="primary" onClick={() => setIsNewSellPage(true)}>
+        <Button
+          onClick={() => setIsNewSellPage(true)}
+          className="bg-primary text-white hover:text-secondary font-bold"
+        >
           New Sell
         </Button>
       </div>
