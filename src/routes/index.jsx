@@ -48,6 +48,9 @@ import AuditLogs from "../components/auditLogs/AuditLogs";
 import LoginCredentials from "../components/loginCredentials/LoginCredentials";
 import ReportingAnalytics from "../components/reportingAnalytics/ReportingAnalytics";
 import PushNotifications from "../components/pushNotifications/PushNotifications";
+import SignUp from "../Pages/Auth/SignUp";
+import OtpVerification from "../Pages/Auth/OtpVerification";
+import ShopInfo from "../Pages/Auth/ShopInfo";
 // import SalesRepsManagementTable from "../components/SalesRepsManagement/SalesRepsManagement";
 
 const router = createBrowserRouter([
@@ -217,6 +220,18 @@ const router = createBrowserRouter([
       {
         path: "set-password",
         element: <SetPassword />,
+      },
+      {
+        path: "signup",
+        element: <SignUp />,
+      },
+      {
+        path: "otp-verification",
+        element: <OtpVerification />,
+      },
+      {
+        path: "shop-info",
+        element: <ShopInfo />,
       },
     ],
   },

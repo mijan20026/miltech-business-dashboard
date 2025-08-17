@@ -1,10 +1,12 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from "react-router-dom";
 import bgImage from "../../assets/bgImage.png";
 import loginImage from "../../assets/sideimage.png";
 import forgotImage from "../../assets/forgot-img.png";
 import verifyEmail from "../../assets/checkEmail.png";
 import setImage from "../../assets/set-password.png";
 import resetSuccess from "../../assets/reset-success.png";
+import signUp from "../../assets/signup.png";
+import otpVerification from "../../assets/otp-verification.png";
 
 const Auth = () => {
   const location = useLocation();
@@ -16,6 +18,8 @@ const Auth = () => {
     "/auth/verify-email": verifyEmail,
     "/auth/set-password": setImage,
     "/auth/reset-success": resetSuccess,
+    "/auth/signup": signUp,
+    "/auth/otp-verification": otpVerification,
   };
 
   // Pick the correct image or a default one
@@ -75,4 +79,3 @@ const Auth = () => {
 };
 
 export default Auth;
-
