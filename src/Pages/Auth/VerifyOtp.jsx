@@ -12,7 +12,7 @@ const VerifyOtp = () => {
   const email = new URLSearchParams(location.search).get("email")
 
   const onFinish = async(values) => {
-        navigate(`/auth/reset-password?email=${email}`);
+        navigate(`/auth/set-password?email=${email}`);
   };
 
   const handleResendEmail = async() => {
@@ -53,7 +53,7 @@ const VerifyOtp = () => {
         <p className="text-center text-[#667085]">
           Didn’t receive the email?{" "}
           <a
-            href="/auth/register"
+            href="/auth/login"
             className="text-[#3FAE6A] hover:text-[#1E1E1E] font-semibold"
           >
             Click to resend

@@ -9,7 +9,7 @@ const SignUp = () => {
 
   const onFinish = async (values) => {
     console.log("Form values:", values);
-    navigate("/");
+    navigate("/auth/login");
   };
 
   return (

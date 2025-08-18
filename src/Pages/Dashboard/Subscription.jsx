@@ -212,11 +212,11 @@ const PackagesPlans = () => {
             >
               <div className="flex justify-end mb-2">
                 <div className="flex gap-2">
-                  <Button
+                  {/* <Button
                     icon={<EditOutlined />}
                     onClick={() => showModal(pkg)}
                     className="text-gray-800 border-gray-800 hover:text-primary hover:border-primary"
-                  />
+                  /> */}
                   {/* <Button
                     icon={<DeleteOutlined />}
                     onClick={() => handleDelete(pkg.id)}
