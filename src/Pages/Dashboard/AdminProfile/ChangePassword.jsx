@@ -21,9 +21,11 @@ const ChangePassword = () => {
             initialValues={{
               remember: true,
             }}
-            style={{
-              // width: "80%",
-            }}
+            style={
+              {
+                // width: "80%",
+              }
+            }
             onFinish={handleChangePassword}
           >
             <div className="mb-[20px] w-[100%]">
@@ -42,8 +44,8 @@ const ChangePassword = () => {
                   placeholder="Enter Password"
                   type="password"
                   style={{
-                    border: "1px solid #E0E4EC",
-                    height: "40px",
+                    // border: "1px solid #E0E4EC",
+                    // height: "40px",
                     background: "white",
                     borderRadius: "8px",
                     outline: "none",
@@ -85,8 +87,8 @@ const ChangePassword = () => {
                   type="password"
                   placeholder="Enter password"
                   style={{
-                    border: "1px solid #E0E4EC",
-                    height: "40px",
+                    // border: "1px solid #E0E4EC",
+                    // height: "40px",
                     background: "white",
                     borderRadius: "8px",
                     outline: "none",
@@ -125,8 +127,8 @@ const ChangePassword = () => {
                   type="password"
                   placeholder="Enter password"
                   style={{
-                    border: "1px solid #E0E4EC",
-                    height: "40px",
+                    // border: "1px solid #E0E4EC",
+                    // height: "40px",
                     background: "white",
                     borderRadius: "8px",
                     outline: "none",
