@@ -1,20 +1,19 @@
 import { Button, Form, Input } from "antd";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import keyIcon from "../../assets/key.png"
+import { Link, useNavigate } from "react-router-dom";
+import keyIcon from "../../assets/key.png";
 import { ArrowLeft } from "lucide-react";
-
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
 
-  const onFinish = async(values) => {
-        navigate(`/auth/verify-otp?email=${values?.email}`);
+  const onFinish = async (values) => {
+    navigate(`/auth/verify-otp?email=${values?.email}`);
   };
 
   return (
     <div>
-      <img src={keyIcon} alt="KeyIcon" className="mb-[24px] mx-auto"/>
+      <img src={keyIcon} alt="KeyIcon" className="mb-[24px] mx-auto" />
       <div className="text-center mb-8">
         <h1 className="text-[25px] font-semibold mb-6">Forgot password?</h1>
         <p className="w-[90%] mx-auto text-base">
@@ -67,10 +66,13 @@ const ForgotPassword = () => {
         </Form.Item>
       </Form>
       <div className="">
-        <a href="/auth/login" className="flex items-center justify-center gap-1 text-[#667085] hover:text-[#3FAE6A] text-center mt-4">
+        <Link
+          to="/auth/login"
+          className="flex items-center justify-center gap-1 text-[#667085] hover:text-[#3FAE6A] text-center mt-4"
+        >
           <ArrowLeft size={20} />
           <p>Back to log in</p>
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -58,6 +58,8 @@ const router = createBrowserRouter([
     path: "/",
     // element: <ProtectedRoute><Main /></ProtectedRoute> ,
     element: <Main />,
+    // element: <Auth />,
+
     children: [
       {
         path: "/",
@@ -75,7 +77,7 @@ const router = createBrowserRouter([
         path: "/loyaltyProgram",
         element: <TierSystem />,
       },
-            {
+      {
         path: "/promotionManagement",
         element: <PromotionManagement />,
       },
