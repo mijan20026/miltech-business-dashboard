@@ -105,7 +105,12 @@ const Sidebar = () => {
     {
       key: "/subscription",
       icon: renderIcon(SubscriptionManagement, "/subscription"),
-      label: <Link to="/subscription">Subscription Package</Link>,
+      label: <Link to="/subscription">Subscription</Link>,
+    },
+    {
+      key: "/loginCredentials",
+      icon: renderIcon(loginCredentials, "/loginCredentials"),
+      label: <Link to="/loginCredentials">User Management</Link>,
     },
     {
       key: "/salesRepPortal",
@@ -116,11 +121,6 @@ const Sidebar = () => {
       key: "/auditLogs",
       icon: renderIcon(AuditLog, "/auditLogs"),
       label: <Link to="/auditLogs">Audit Logs</Link>,
-    },
-    {
-      key: "/loginCredentials",
-      icon: renderIcon(loginCredentials, "/loginCredentials"),
-      label: <Link to="/loginCredentials">Login Credentials</Link>,
     },
     {
       key: "/pushNotification",

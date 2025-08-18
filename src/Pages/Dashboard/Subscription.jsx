@@ -268,10 +268,10 @@ const PackagesPlans = () => {
                   )}
                 />
               </div>
-              {/* <Button className="w-full mt-12 border border-primary hover:!bg-primary hover:!text-white">
-                Turn Off
-              </Button> */}
-              <Button
+              <Button className="w-full mt-12 border bg-[#D7F4DE] border-primary hover:!bg-primary hover:!text-white p-5 text-[16px] font-medium">
+                Get Started
+              </Button>
+              {/* <Button
                 className={`w-full mt-12 border ${
                   pkg.active
                     ? "border-primary hover:!bg-primary hover:!text-white"
@@ -280,7 +280,7 @@ const PackagesPlans = () => {
                 onClick={() => togglePackageStatus(pkg.id)}
               >
                 {pkg.active ? "Turn Off" : "Turn On"}
-              </Button>
+              </Button> */}
             </Card>
           ))}
         </div>
