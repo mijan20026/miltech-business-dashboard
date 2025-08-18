@@ -15,7 +15,6 @@ const PieChart = () => {
       else if (window.innerWidth < 1024) setChartHeight("200px");
       else setChartHeight("250px");
     };
-
     updateChartHeight();
     window.addEventListener("resize", updateChartHeight);
     return () => window.removeEventListener("resize", updateChartHeight);
@@ -37,15 +36,18 @@ const PieChart = () => {
         label: "Performance % of max",
         data: percentageData,
         backgroundColor: [
-          "#3fae6a",
-          "#198248",
-          "#6FCF97",
-          "#4AAE6A",
-          "#1F7A3A",
-          "#3FCF7A",
-          "#2E8B57",
+          "#7086FD",
+          "#6FD195",
+          "#FFAE4C",
+          "#07DBFA",
+          "#988AFC",
+          "#1F94FF",
+          "#FF928A",
         ],
         borderWidth: 1,
+        // This makes it a donut chart
+        cutout: "50%",
+        // weight: [1, 1, 2, 1, 1, 1, 1], // make "Wed" slice thicker
       },
     ],
   };

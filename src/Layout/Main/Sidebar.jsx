@@ -108,25 +108,25 @@ const Sidebar = () => {
       label: <Link to="/subscription">Subscription</Link>,
     },
     {
-      key: "/loginCredentials",
-      icon: renderIcon(loginCredentials, "/loginCredentials"),
-      label: <Link to="/loginCredentials">User Management</Link>,
+      key: "/userManagement",
+      icon: renderIcon(loginCredentials, "/userManagement"),
+      label: <Link to="/userManagement">User Management</Link>,
     },
-    {
-      key: "/salesRepPortal",
-      icon: renderIcon(SalesRep, "/salesRepPortal"),
-      label: <Link to="/salesRepPortal">Sales Rep Portal</Link>,
-    },
-    {
-      key: "/auditLogs",
-      icon: renderIcon(AuditLog, "/auditLogs"),
-      label: <Link to="/auditLogs">Audit Logs</Link>,
-    },
-    {
-      key: "/pushNotification",
-      icon: renderIcon(loginCredentials, "/pushNotification"),
-      label: <Link to="/pushNotification">Push Notifications</Link>,
-    },
+    // {
+    //   key: "/salesRepPortal",
+    //   icon: renderIcon(SalesRep, "/salesRepPortal"),
+    //   label: <Link to="/salesRepPortal">Sales Rep Portal</Link>,
+    // },
+    // {
+    //   key: "/auditLogs",
+    //   icon: renderIcon(AuditLog, "/auditLogs"),
+    //   label: <Link to="/auditLogs">Audit Logs</Link>,
+    // },
+    // {
+    //   key: "/pushNotification",
+    //   icon: renderIcon(loginCredentials, "/pushNotification"),
+    //   label: <Link to="/pushNotification">Push Notifications</Link>,
+    // },
     // End of Burger King
 
     // {

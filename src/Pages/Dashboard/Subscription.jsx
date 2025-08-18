@@ -17,8 +17,7 @@ const PackagesPlans = () => {
     {
       id: 1,
       title: "Basic Plan",
-      description:
-        "Perfect for startups and small businesses looking to establish their online presence.",
+      description: "Billed annually.",
       price: 0,
       duration: "1 month",
       features: [
@@ -27,7 +26,6 @@ const PackagesPlans = () => {
         "24/7 Support",
         "10GB Storage",
         "Email Integration",
-        "API not accessible",
       ],
       popular: false,
       active: true,
@@ -35,8 +33,7 @@ const PackagesPlans = () => {
     {
       id: 2,
       title: "Gold Plan",
-      description:
-        "Ideal for growing businesses with advanced features and expanded capabilities.",
+      description: "Billed annually.",
       price: 20,
       duration: "6 months",
       features: [
@@ -45,7 +42,6 @@ const PackagesPlans = () => {
         "24/7 Priority Support",
         "50GB Storage",
         "Email & CRM Integration",
-        "API Access",
       ],
       popular: true,
       active: false,
@@ -53,8 +49,7 @@ const PackagesPlans = () => {
     {
       id: 3,
       title: "Premium Plan",
-      description:
-        "Comprehensive solution for large organizations with extensive needs and premium support.",
+      description: "Billed annually.",
       price: 40,
       duration: "1 year",
       features: [
@@ -63,7 +58,6 @@ const PackagesPlans = () => {
         "Dedicated Account Manager",
         "Unlimited Storage",
         "Complete System Integration",
-        "Custom API Development",
       ],
       popular: false,
       active: true,
@@ -173,21 +167,21 @@ const PackagesPlans = () => {
   // Get card background color based on package popularity
   const getCardStyle = (pkg) => {
     if (pkg.popular) {
-      return "shadow-xl rounded-xl  bg-gradient-to-b from-blue-50 to-white hover:shadow-2xl transition-all transform hover:-translate-y-1";
+      return "shadow-sm rounded-xl  bg-gradient-to-b from-blue-50 to-white hover:shadow-md transition-all transform hover:-translate-y-1";
     }
-    return "shadow-lg rounded-xl border border-gray-200 bg-white hover:shadow-xl transition-all transform hover:-translate-y-1";
+    return "shadow-sm rounded-xl border border-gray-200 bg-white hover:shadow-md transition-all transform hover:-translate-y-1";
   };
 
   return (
-    <div className="py-6 px-4">
+    <div className=" px-4">
       <div className="flex flex-col justify-center items-center mb-8">
-        <p className="bg-primary px-[12px] py-[4px] text-white rounded-3xl mb-4">
+        <p className="bg-primary px-[12px] py-[4px] text-white rounded-3xl mb-2">
           Pricing Plan
         </p>
-        <h2 className="text-[48px] font-semibold text-secondary mb-[20px]">
+        <h2 className="text-[38px] font-semibold text-secondary">
           Plans for all sizes
         </h2>
-        <p className="text-[20px] font-normal mb-[50px]">
+        <p className="text-[15px] font-normal mb-[10px]">
           Simple, transparent pricing that grows with you. Try any plan free for
           30 days.
         </p>
@@ -241,7 +235,7 @@ const PackagesPlans = () => {
                   {pkg.title}
                 </h3>
                 <div className="mb-2">
-                  <span className="text-secondary font-semibold text-[48px]">
+                  <span className="text-secondary font-semibold text-[38px]">
                     ${pkg.price}/mth
                   </span>
                   {/* <span className="text-gray-500 ml-2">/ {pkg.duration}</span> */}

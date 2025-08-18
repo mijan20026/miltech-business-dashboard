@@ -84,15 +84,15 @@ const router = createBrowserRouter([
         element: <SubscriptionTable />,
       },
       {
-        path: "/SalesRepPortal",
+        path: "/salesRepPortal",
         element: <SalesRepPortal />,
       },
       {
-        path: "/AuditLogs",
+        path: "/auditLogs",
         element: <AuditLogs />,
       },
       {
-        path: "/LoginCredentials",
+        path: "/userManagement",
         element: <LoginCredentials />,
       },
       {

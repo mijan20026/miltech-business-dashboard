@@ -120,7 +120,7 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="flex justify-center items-center shadow-xl rounded-lg pt-5 pb-12">
+    <div className="flex justify-center items-center shadow-xl rounded-lg pt-5 pb-4">
       <Form
         form={form}
         layout="vertical"
@@ -151,80 +151,90 @@ const UserProfile = () => {
             </Form.Item>
             <h2 className="text-[24px] font-bold">{dummyData.username}</h2>
           </div>
+          <div className="flex justify-between gap-5">
+            <div className="w-full">
+              {/* Username */}
+              <Form.Item
+                name="username"
+                label="Full Name"
+                rules={[{ required: true, message: "Please enter your name" }]}
+              >
+                <Input placeholder="Enter your full name" />
+              </Form.Item>
 
-          {/* Username */}
-          <Form.Item
-            name="username"
-            label="Full Name"
-            rules={[{ required: true, message: "Please enter your name" }]}
-          >
-            <Input placeholder="Enter your full name" />
-          </Form.Item>
+              {/* Company */}
+              <Form.Item
+                name="company"
+                label="Company"
+                rules={[
+                  { required: true, message: "Please enter your company" },
+                ]}
+              >
+                <Input placeholder="Enter your company name" />
+              </Form.Item>
 
-          {/* Company */}
-          <Form.Item
-            name="company"
-            label="Company"
-            rules={[{ required: true, message: "Please enter your company" }]}
-          >
-            <Input placeholder="Enter your company name" />
-          </Form.Item>
+              {/* Email */}
+              <Form.Item
+                name="email"
+                label="Email"
+                rules={[
+                  { required: true, message: "Please enter your email" },
+                  { type: "email", message: "Please enter a valid email" },
+                ]}
+              >
+                <Input placeholder="Enter your email" disabled />
+              </Form.Item>
+              {/* Contact */}
+              <Form.Item
+                name="contact"
+                label="Contact Number"
+                rules={[
+                  { required: true, message: "Please enter contact number" },
+                ]}
+              >
+                <Input placeholder="Enter your contact number" />
+              </Form.Item>
+            </div>
+            <div className="w-full">
+              {/* Website URL */}
+              <Form.Item
+                name="url"
+                label="Website URL"
+                rules={[
+                  { required: true, message: "Please enter your website URL" },
+                ]}
+              >
+                <Input placeholder="Enter your website URL" />
+              </Form.Item>
 
-          {/* Email */}
-          <Form.Item
-            name="email"
-            label="Email"
-            rules={[
-              { required: true, message: "Please enter your email" },
-              { type: "email", message: "Please enter a valid email" },
-            ]}
-          >
-            <Input placeholder="Enter your email" disabled />
-          </Form.Item>
+              {/* Address */}
+              <Form.Item
+                name="address"
+                label="Address"
+                rules={[
+                  { required: true, message: "Please enter your address" },
+                ]}
+              >
+                <Input placeholder="Enter your address" />
+              </Form.Item>
 
-          {/* Contact */}
-          <Form.Item
-            name="contact"
-            label="Contact Number"
-            rules={[{ required: true, message: "Please enter contact number" }]}
-          >
-            <Input placeholder="Enter your contact number" />
-          </Form.Item>
-
-          {/* Website URL */}
-          <Form.Item
-            name="url"
-            label="Website URL"
-            rules={[
-              { required: true, message: "Please enter your website URL" },
-            ]}
-          >
-            <Input placeholder="Enter your website URL" />
-          </Form.Item>
-
-          {/* Address */}
-          <Form.Item
-            name="address"
-            label="Address"
-            rules={[{ required: true, message: "Please enter your address" }]}
-          >
-            <Input placeholder="Enter your address" />
-          </Form.Item>
-
-          {/* Service Dropdown */}
-          <Form.Item
-            name="service"
-            label="Service"
-            rules={[{ required: true, message: "Please select your service" }]}
-          >
-            <Select placeholder="Select your service">
-              <Option value="IT Services">IT Services</Option>
-              <Option value="Consulting">Consulting</Option>
-              <Option value="Marketing">Marketing</Option>
-              <Option value="Finance">Finance</Option>
-            </Select>
-          </Form.Item>
-
+              {/* Service Dropdown */}
+              <Form.Item
+                name="service"
+                label="Service"
+                rules={[
+                  { required: true, message: "Please select your service" },
+                ]}
+              >
+                <Select placeholder="Select your service">
+                  <Option value="IT Services">IT Services</Option>
+                  <Option value="Consulting">Consulting</Option>
+                  <Option value="Marketing">Marketing</Option>
+                  <Option value="Finance">Finance</Option>
+                </Select>
+              </Form.Item>
+            </div>
+          </div>
           {/* Company About Us */}
           <Form.Item
             name="aboutUs"
@@ -233,11 +243,11 @@ const UserProfile = () => {
               { required: true, message: "Please describe your company" },
             ]}
           >
-            <TextArea rows={4} placeholder="Write about your company" />
+            <TextArea rows={2} placeholder="Write about your company" />
           </Form.Item>
 
           {/* Update Profile Button */}
-          <div className="col-span-2 text-end mt-6">
+          <div className="col-span-2 text-end mt-2">
             <Form.Item>
               <Button
                 type="primary"
