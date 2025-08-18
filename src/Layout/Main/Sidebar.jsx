@@ -93,6 +93,11 @@ const Sidebar = () => {
       label: <Link to="/customerManagement">Customer Management</Link>,
     },
     {
+      key: "/promotionManagement",
+      icon: renderIcon(PromotionManagement, "/promotionManagement"),
+      label: <Link to="/promotionManagement">Promotions & Discounts</Link>,
+    },
+    {
       key: "/reportingAnalytics",
       icon: renderIcon(Rewords, "/reportingAnalytics"),
       label: <Link to="/reportingAnalytics">Reporting & Analytics</Link>,
@@ -101,11 +106,6 @@ const Sidebar = () => {
       key: "/subscription",
       icon: renderIcon(SubscriptionManagement, "/subscription"),
       label: <Link to="/subscription">Subscription Package</Link>,
-    },
-    {
-      key: "/promotionManagement",
-      icon: renderIcon(PromotionManagement, "/promotionManagement"),
-      label: <Link to="/promotionManagement">Promotion Management</Link>,
     },
     {
       key: "/salesRepPortal",

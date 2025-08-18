@@ -75,13 +75,13 @@ const router = createBrowserRouter([
         path: "/loyaltyProgram",
         element: <TierSystem />,
       },
+            {
+        path: "/promotionManagement",
+        element: <PromotionManagement />,
+      },
       {
         path: "/subsciption",
         element: <SubscriptionTable />,
-      },
-      {
-        path: "/promotionManagement",
-        element: <PromotionManagement />,
       },
       {
         path: "/SalesRepPortal",

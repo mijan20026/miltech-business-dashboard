@@ -1,4 +1,4 @@
-import React, { useState } from "react"; // ✅ Change: Added useState
+import React, { useState } from "react";
 import {
   Form,
   Input,
@@ -7,15 +7,26 @@ import {
   InputNumber,
   Upload,
   Select,
-} from "antd"; // ✅ Change: Added Select
-import { UploadOutlined } from "@ant-design/icons"; // ✅ Change: Added icon
+  Checkbox,
+} from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 
 const { RangePicker } = DatePicker;
-const { Option } = Select; // ✅ Change: Select option
+const { Option } = Select;
+
+const daysOptions = [
+  { label: "Mon", value: "Monday" },
+  { label: "Tue", value: "Tuesday" },
+  { label: "Wed", value: "Wednesday" },
+  { label: "Thu", value: "Thursday" },
+  { label: "Fri", value: "Friday" },
+  { label: "Sat", value: "Saturday" },
+  { label: "Sun", value: "Sunday" },
+];
 
 const NewCampaign = ({ onSave, onCancel }) => {
   const [form] = Form.useForm();
-  const [thumbnail, setThumbnail] = useState(""); // ✅ Change: Store uploaded thumbnail
+  const [thumbnail, setThumbnail] = useState("");
 
   const handleThumbnailChange = ({ file }) => {
     if (file.status === "done" || file.originFileObj) {
@@ -35,10 +46,11 @@ const NewCampaign = ({ onSave, onCancel }) => {
       discountPercentage: values.discountPercentage,
       startDate: startDate ? startDate.format("YYYY-MM-DD") : null,
       endDate: endDate ? endDate.format("YYYY-MM-DD") : null,
-      thumbnail, // ✅ Change: Include thumbnail in submitted data
+      thumbnail,
+      promotionDays: values.promotionDays || [],
     });
     form.resetFields();
-    setThumbnail(""); // ✅ Change: Reset thumbnail after submit
+    setThumbnail("");
   };
 
   return (
@@ -55,7 +67,6 @@ const NewCampaign = ({ onSave, onCancel }) => {
               <Input className="px-3" placeholder="Enter Promotion Name" />
             </Form.Item>
 
-            {/* ✅ Change: Use Select for Promotion Type */}
             <Form.Item
               label="Promotion Type"
               name="promotionType"
@@ -83,15 +94,26 @@ const NewCampaign = ({ onSave, onCancel }) => {
                 placeholder="Enter Customer Reach"
               />
             </Form.Item>
+
             <Form.Item
-              label="Customer Segment"
               name="customerSegment"
-              rules={[{ required: true }]}
+              label="Customer Segment"
+              rules={[{ required: true, message: "Please select a segment" }]}
             >
-              <Input
-                className="px-3"
-                placeholder="Enter Customer Segment"
-              />
+              <Select placeholder="Select Customer Segment">
+                <Select.Option value="New Customers">
+                  New Customers
+                </Select.Option>
+                <Select.Option value="Returning Customers">
+                  Returning Customers
+                </Select.Option>
+                <Select.Option value="Loyal Customers">
+                  Loyal Customers
+                </Select.Option>
+                <Select.Option value="All Customers">
+                  All Customers
+                </Select.Option>
+              </Select>
             </Form.Item>
           </div>
 
@@ -109,6 +131,7 @@ const NewCampaign = ({ onSave, onCancel }) => {
                 placeholder="Enter Discount Percentage"
               />
             </Form.Item>
+
             <Form.Item
               label="Date Range"
               name="dateRange"
@@ -119,11 +142,22 @@ const NewCampaign = ({ onSave, onCancel }) => {
           </div>
         </div>
 
-        {/* ✅ Change: Add thumbnail upload */}
+        <div className="w-full mb-4">
+          <Form.Item
+            label="Select Promotion Days"
+            name="promotionDays"
+            rules={[
+              { required: true, message: "Please select at least one day" },
+            ]}
+          >
+            <Checkbox.Group options={daysOptions} className="flex gap-2" />
+          </Form.Item>
+        </div>
+
         <Form.Item label="Thumbnail">
           <Upload
             listType="picture"
-            beforeUpload={() => false} // prevent auto upload
+            beforeUpload={() => false}
             onChange={handleThumbnailChange}
           >
             <Button icon={<UploadOutlined />} className="px-3 py-3">

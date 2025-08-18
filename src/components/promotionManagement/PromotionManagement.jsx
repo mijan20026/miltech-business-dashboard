@@ -1,11 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import { Table, Button, Switch, Form, Input, Tooltip } from "antd";
+import { Table, Button, Switch, Form, Input, Tooltip, Select } from "antd";
 import { FaEdit } from "react-icons/fa";
 import { IoEyeSharp, IoArrowBack } from "react-icons/io5";
 import Swal from "sweetalert2";
 import MarchantIcon from "../../assets/marchant.png";
 import NewCampaign from "../promotionManagement/components/NewCampaing.jsx";
+
+const { Option } = Select;
 
 const components = {
   header: {
@@ -68,6 +70,9 @@ const PromotionManagement = () => {
     useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
 
+  // Notify modal
+  const [isNotifyModalVisible, setIsNotifyModalVisible] = useState(false);
+
   const handleAddCampaign = (newCampaign) => {
     setData((prev) => [
       ...prev,
@@ -90,7 +95,7 @@ const PromotionManagement = () => {
       )
     );
     setIsEditModalVisible(false);
-    setSelectedRecord(null); // <-- reset selectedRecord
+    setSelectedRecord(null);
     Swal.fire({
       icon: "success",
       title: "Updated!",
@@ -102,7 +107,18 @@ const PromotionManagement = () => {
 
   const handleEditCancel = () => {
     setIsEditModalVisible(false);
-    setSelectedRecord(null); // <-- reset selectedRecord
+    setSelectedRecord(null);
+  };
+
+  const handleSendNotification = (values) => {
+    setIsNotifyModalVisible(false);
+    Swal.fire({
+      icon: "success",
+      title: "Notification Sent!",
+      text: `Message titled "${values.title}" has been sent to ${values.segment}.`,
+      timer: 1500,
+      showConfirmButton: false,
+    });
   };
 
   const columns = [
@@ -177,18 +193,10 @@ const PromotionManagement = () => {
             className="flex gap-2 justify-between align-middle"
             style={{ alignItems: "center" }}
           >
-            <Tooltip title="View Details">
-              <button
-                onClick={() => setSelectedRecord(record)}
-                className="text-primary hover:text-green-700 text-xl"
-              >
-                <IoEyeSharp />
-              </button>
-            </Tooltip>
             <Tooltip title="Edit">
               <button
                 onClick={() => {
-                  setSelectedRecord(record); // Important: set record before opening modal
+                  setSelectedRecord(record);
                   setIsEditModalVisible(true);
                 }}
                 className="text-primary hover:text-green-700 text-[17px]"
@@ -296,7 +304,6 @@ const PromotionManagement = () => {
             </div>
           </div>
           <Button
-            // icon={<IoArrowBack />}
             onClick={() => setSelectedRecord(null)}
             type="primary"
             className="bg-primary !text-white hover:!text-secondary hover:!bg-white hover:!border-primary px-[30px] py-[25px] rounded-full text-[18px] font-bold"
@@ -328,13 +335,20 @@ const PromotionManagement = () => {
             View and manage all your active campaigns in one place.
           </p>
         </div>
-        <Button
-          type="primary"
-          className="bg-primary !text-white hover:!text-secondary hover:!bg-white hover:!border-primary px-[30px] py-[25px] rounded-full text-[18px] font-bold"
-          onClick={() => setIsNewCampaignModalVisible(true)}
-        >
-          New Campaign
-        </Button>
+        <div className="flex gap-4">
+          <Button
+            className="bg-primary !text-white hover:!text-secondary hover:!bg-white hover:!border-primary px-[30px] py-[25px] rounded-full text-[18px] font-bold"
+            onClick={() => setIsNotifyModalVisible(true)}
+          >
+            Apply to Notify
+          </Button>
+          <Button
+            className="bg-primary !text-white hover:!text-secondary hover:!bg-white hover:!border-primary px-[30px] py-[25px] rounded-full text-[18px] font-bold"
+            onClick={() => setIsNewCampaignModalVisible(true)}
+          >
+            New Promo & Discount
+          </Button>
+        </div>
       </div>
 
       <Table
@@ -364,15 +378,49 @@ const PromotionManagement = () => {
               >
                 <Input />
               </Form.Item>
-              <Form.Item name="promotionType" label="Promotion Type">
-                <Input />
+
+              <Form.Item
+                name="promotionType"
+                label="Promotion Type"
+                rules={[
+                  { required: true, message: "Please select promotion type" },
+                ]}
+              >
+                <Select placeholder="Select Promotion Type">
+                  <Select.Option value="Discount">Discount</Select.Option>
+                  <Select.Option value="BOGO">Buy One Get One</Select.Option>
+                  <Select.Option value="Cashback">Cashback</Select.Option>
+                  <Select.Option value="Free Shipping">
+                    Free Shipping
+                  </Select.Option>
+                </Select>
               </Form.Item>
+
               <Form.Item name="customerReach" label="Customer Reach">
                 <Input type="number" />
               </Form.Item>
-              <Form.Item name="customerSegment" label="Customer Segment">
-                <Input />
+
+              <Form.Item
+                name="customerSegment"
+                label="Customer Segment"
+                rules={[{ required: true, message: "Please select a segment" }]}
+              >
+                <Select placeholder="Select Customer Segment">
+                  <Select.Option value="New Customers">
+                    New Customers
+                  </Select.Option>
+                  <Select.Option value="Returning Customers">
+                    Returning Customers
+                  </Select.Option>
+                  <Select.Option value="Loyal Customers">
+                    Loyal Customers
+                  </Select.Option>
+                  <Select.Option value="All Customers">
+                    All Customers
+                  </Select.Option>
+                </Select>
               </Form.Item>
+
               <Form.Item name="discountPercentage" label="Discount Percentage">
                 <Input type="number" />
               </Form.Item>
@@ -382,11 +430,12 @@ const PromotionManagement = () => {
               <Form.Item name="endDate" label="End Date">
                 <Input type="date" />
               </Form.Item>
+
               <div className="flex gap-2 mt-4">
                 <Button
                   type="default"
                   className="flex-1"
-                  onClick={handleEditCancel} // <-- use the new handler
+                  onClick={handleEditCancel}
                 >
                   Cancel
                 </Button>
@@ -407,6 +456,62 @@ const PromotionManagement = () => {
               onSave={handleAddCampaign}
               onCancel={() => setIsNewCampaignModalVisible(false)}
             />
+          </div>
+        </div>
+      )}
+
+      {/* Notify Modal */}
+      {isNotifyModalVisible && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-md w-[500px]">
+            <h2 className="text-xl font-bold mb-4">Send Notification</h2>
+            <Form layout="vertical" onFinish={handleSendNotification}>
+              {/* Segment Dropdown */}
+              <Form.Item
+                name="segment"
+                label="All customers (that have transacted with this merchant)"
+                rules={[{ required: true, message: "Please select a segment" }]}
+              >
+                <Select placeholder="Choose segment">
+                  <Option value="New Customers">New Customers</Option>
+                  <Option value="Returning Customers">
+                    Returning Customers
+                  </Option>
+                  <Option value="VIP Customers">VIP Customers</Option>
+                </Select>
+              </Form.Item>
+
+              {/* Title Field */}
+              <Form.Item
+                name="title"
+                label="All customers that have at least x number of points"
+                rules={[{ required: true, message: "Please enter a title" }]}
+              >
+                <Input placeholder="" />
+              </Form.Item>
+
+              {/* Message Field */}
+              <Form.Item
+                name="message"
+                label="Customers located within x km of radius from the merchant location"
+                rules={[{ required: true, message: "Please enter a message" }]}
+              >
+                <Input placeholder="" />
+              </Form.Item>
+
+              <div className="flex gap-2 mt-12">
+                <Button
+                  type="default"
+                  className="flex-1"
+                  onClick={() => setIsNotifyModalVisible(false)}
+                >
+                  Cancel
+                </Button>
+                <Button type="primary" htmlType="submit" className="flex-1">
+                  Send
+                </Button>
+              </div>
+            </Form>
           </div>
         </div>
       )}
