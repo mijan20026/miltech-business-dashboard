@@ -71,7 +71,7 @@ const BarChart = () => {
       },
       tooltip: {
         callbacks: {
-          label: (context) => `${context.raw}% of max`,
+          label: (context) => `${context.raw} of max`,
         },
         backgroundColor: "#3fae6a",
         titleColor: "#fff",
@@ -99,7 +99,7 @@ const BarChart = () => {
         },
         ticks: {
           color: "#181818",
-          callback: (value) => `${value}%`,
+          callback: (value) => `${value}`,
         },
       },
     },

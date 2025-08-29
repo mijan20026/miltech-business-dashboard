@@ -133,7 +133,7 @@ const Home = () => {
               <div className="flex items-center">
                 <div className="flex flex-col items-baseline">
                   <h2 className="text-center text-[16px] font-semibold mb-1">
-                    Today's Sales
+                    Total Sales
                   </h2>
                   <h3 className="text-secondary text-[24px] text-center font-semibold flex items-center gap-3">
                     <Sales className="w-[20px] h-[20px] text-secondary" />
@@ -161,7 +161,7 @@ const Home = () => {
               <div className="flex items-center">
                 <div className="flex flex-col items-baseline">
                   <h2 className="text-center text-[16px] font-semibold mb-1">
-                    Points Issued Today
+                    Total Points Issued
                   </h2>
                   <h3 className="text-secondary text-[24px] text-center font-semibold flex items-center gap-3">
                     <Points className="w-[20px] h-[20px] text-secondary" />
