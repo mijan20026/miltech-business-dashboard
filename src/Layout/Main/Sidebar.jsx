@@ -221,11 +221,11 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
           <Link to={"/"}>
             <img src={logo} alt="logo" className="w-40 h-40 object-contain" />
           </Link>
-          <Upload beforeUpload={handleLogoUpload} showUploadList={false}>
+          {/* <Upload beforeUpload={handleLogoUpload} showUploadList={false}>
             <Button size="small" icon={<UploadOutlined />} className="mt-2">
               Upload Logo
             </Button>
-          </Upload>
+          </Upload> */}
         </div>
       )}
 

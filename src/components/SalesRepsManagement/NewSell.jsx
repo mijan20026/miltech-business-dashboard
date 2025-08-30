@@ -55,7 +55,7 @@ const NewSell = ({ onBack, onSubmit }) => {
                     Available Point
                   </span>
                 }
-                name="cardId"
+                name="availablePoint"
                 // rules={[{ required: true }]}
               >
                 <Input />

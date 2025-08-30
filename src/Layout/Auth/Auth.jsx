@@ -7,6 +7,7 @@ import setImage from "../../assets/set-password.png";
 import resetSuccess from "../../assets/reset-success.png";
 import signUp from "../../assets/signup.png";
 import otpVerification from "../../assets/otp-verification.png";
+import shopInfo from "../../assets/shop-info.png";
 
 const Auth = () => {
   const location = useLocation();
@@ -20,6 +21,7 @@ const Auth = () => {
     "/auth/reset-success": resetSuccess,
     "/auth/signup": signUp,
     "/auth/otp-verification": otpVerification,
+    "/auth/shop-info": shopInfo,
   };
 
   // Pick the correct image or a default one

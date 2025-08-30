@@ -233,6 +233,52 @@ const UserProfile = () => {
                   <Option value="Finance">Finance</Option>
                 </Select>
               </Form.Item>
+
+              {/* Upload Image */}
+              <Form.Item
+                name="image"
+                label="Upload Image (JPG/PNG only)"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please upload an image (JPG/PNG only)",
+                  },
+                ]}
+              >
+                <Upload
+                  beforeUpload={(file) => {
+                    const isJpgOrPng =
+                      file.type === "image/jpeg" || file.type === "image/png";
+                    if (!isJpgOrPng) {
+                      message.error("You can only upload JPG/PNG files!");
+                      return Upload.LIST_IGNORE;
+                    }
+                    return false; // ✅ Prevent auto-upload
+                  }}
+                  maxCount={1}
+                  accept=".jpg,.jpeg,.png"
+                  className="w-full"
+                >
+                  <button
+                    type="button"
+                    style={{
+                      width: "100%",
+                      height: 30,
+                      border: "1px solid #3FAE6A",
+                      borderRadius: "8px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      background: "#fff",
+                      cursor: "pointer",
+                      padding: "0 16px",
+                    }}
+                  >
+                    <span>Upload Marchant Logo </span>
+                    <UploadOutlined />
+                  </button>
+                </Upload>
+              </Form.Item>
             </div>
           </div>
           {/* Company About Us */}

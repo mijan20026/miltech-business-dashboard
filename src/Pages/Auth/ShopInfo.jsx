@@ -14,13 +14,13 @@ const ShopInfo = () => {
 
     // ✅ Show SweetAlert on form submit
     Swal.fire({
-      title: "Your Profile in Under Review",
+      title: "Your Profile is Under Review",
       text: "Your application is under review. Please wait for admin approval.",
       icon: "warning",
       confirmButtonText: "Done",
     }).then(() => {
       // Navigate after closing the alert
-      navigate("/");
+      navigate("/auth/login");
     });
   };
 
@@ -132,7 +132,12 @@ const ShopInfo = () => {
           rules={[{ required: true, message: "Please upload your logo" }]}
           style={{ marginBottom: 24 }}
         >
-          <Upload beforeUpload={() => false} maxCount={1} className="w-full">
+          <Upload
+            beforeUpload={() => false}
+            maxCount={1}
+            className="w-full"
+            accept=".jpg,.jpeg,.png" // ✅ Only allow JPG/PNG files
+          >
             <button
               type="button"
               style={{

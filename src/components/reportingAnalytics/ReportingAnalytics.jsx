@@ -279,7 +279,7 @@ export default function MonthlyStatsChart() {
           ))}
         </Select>
 
-        <Select
+        {/* <Select
           value={selectedCategory}
           style={{ width: 150 }}
           onChange={setSelectedCategory}
@@ -289,7 +289,7 @@ export default function MonthlyStatsChart() {
               {option}
             </Option>
           ))}
-        </Select>
+        </Select> */}
 
         <Select
           value={selectedRegion}
