@@ -113,7 +113,7 @@ const OrderTable = () => {
         </h1>
       </div>
 
-      <div className="">
+      <div className="overflow-x-auto">
         <Table
           dataSource={data}
           columns={columns}
@@ -123,6 +123,7 @@ const OrderTable = () => {
           rowClassName="custom-row"
           components={components}
           className="custom-table"
+          scroll={{ x: "max-content" }}
         />
       </div>
     </div>

@@ -1,8 +1,19 @@
 "use client";
 import React, { useState } from "react";
-import { Table, Button, Switch, Form, Input, Tooltip, Select } from "antd";
+import {
+  Table,
+  Button,
+  Switch,
+  Form,
+  Input,
+  Tooltip,
+  Select,
+  Upload,
+  message,
+} from "antd";
 import { FaEdit } from "react-icons/fa";
 import { IoEyeSharp, IoArrowBack } from "react-icons/io5";
+import { UploadOutlined } from "@ant-design/icons";
 import Swal from "sweetalert2";
 import MarchantIcon from "../../assets/marchant.png";
 import NewCampaign from "../promotionManagement/components/NewCampaing.jsx";
@@ -69,9 +80,8 @@ const PromotionManagement = () => {
   const [isNewCampaignModalVisible, setIsNewCampaignModalVisible] =
     useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-
-  // Notify modal
   const [isNotifyModalVisible, setIsNotifyModalVisible] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState([]);
 
   const handleAddCampaign = (newCampaign) => {
     setData((prev) => [
@@ -119,6 +129,20 @@ const PromotionManagement = () => {
       timer: 1500,
       showConfirmButton: false,
     });
+    setUploadedImage([]); // Clear uploaded image after sending
+  };
+
+  // Image upload validation
+  const beforeUpload = (file) => {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+    if (!isJpgOrPng) {
+      message.error("You can only upload JPG/PNG files!");
+    }
+    return isJpgOrPng || Upload.LIST_IGNORE;
+  };
+
+  const handleUploadChange = ({ fileList }) => {
+    setUploadedImage(fileList);
   };
 
   const columns = [
@@ -340,7 +364,7 @@ const PromotionManagement = () => {
             className="bg-primary !text-white hover:!text-secondary hover:!bg-white hover:!border-primary px-[30px] py-[25px] rounded-full text-[18px] font-bold"
             onClick={() => setIsNotifyModalVisible(true)}
           >
-            Apply to Notify
+            Notification Management
           </Button>
           <Button
             className="bg-primary !text-white hover:!text-secondary hover:!bg-white hover:!border-primary px-[30px] py-[25px] rounded-full text-[18px] font-bold"
@@ -485,7 +509,7 @@ const PromotionManagement = () => {
               <Form.Item
                 name="title"
                 label="All customers that have at least x number of points"
-                rules={[{ required: true, message: "Please enter a title" }]}
+                rules={[{ required: true, message: "Please enter a number" }]}
               >
                 <Input placeholder="" />
               </Form.Item>
@@ -494,9 +518,56 @@ const PromotionManagement = () => {
               <Form.Item
                 name="message"
                 label="Customers located within x km of radius from the merchant location"
-                rules={[{ required: true, message: "Please enter a message" }]}
+                rules={[
+                  { required: true, message: "Please enter distance/KM" },
+                ]}
               >
                 <Input placeholder="" />
+              </Form.Item>
+
+              {/* Additional Text Field */}
+              <Form.Item
+                name="additionalInfo"
+                label="Promotion/discount message"
+                rules={[{ required: false, message: "Optional information" }]}
+              >
+                <Input.TextArea
+                  placeholder="Enter additional information here"
+                  autoSize={{ minRows: 3, maxRows: 6 }}
+                />
+              </Form.Item>
+
+              {/* Image Upload Field */}
+              <Form.Item name="image" label="Upload Image (JPG/PNG only)">
+                <Upload
+                  listType="picture"
+                  fileList={uploadedImage}
+                  beforeUpload={(file) => {
+                    const isJpgOrPng =
+                      file.type === "image/jpeg" || file.type === "image/png";
+                    if (!isJpgOrPng) {
+                      message.error("You can only upload JPG/PNG files!");
+                    }
+                    const isLt2M = file.size / 1024 / 1024 < 2;
+                    if (!isLt2M) {
+                      message.error("Image must smaller than 2MB!");
+                    }
+                    return isJpgOrPng && isLt2M;
+                  }}
+                  onChange={handleUploadChange}
+                  onRemove={(file) => {
+                    setUploadedImage((prev) =>
+                      prev.filter((f) => f.uid !== file.uid)
+                    );
+                  }}
+                  maxCount={1}
+                  accept=".jpg,.jpeg,.png"
+                >
+                  <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                </Upload>
+                <p className="text-sm text-gray-500 mt-1">
+                  Allowed file types: JPG, PNG. Maximum file size: 2MB.
+                </p>
               </Form.Item>
 
               <div className="flex gap-2 mt-12">

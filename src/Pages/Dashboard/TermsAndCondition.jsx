@@ -38,12 +38,12 @@ const TermsAndCondition = () => {
     <div className="p-4">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-bold">Terms & Conditions</h2>
-        <GradientButton
+        {/* <GradientButton
           onClick={showModal}
           className="w-60 bg-secondary text-white h-10"
         >
           Update Terms & Conditions
-        </GradientButton>
+        </GradientButton> */}
       </div>
 
       <div className="saved-content mt-6 border p-6 rounded-lg bg-white">

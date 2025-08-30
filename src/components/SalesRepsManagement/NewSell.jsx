@@ -102,7 +102,7 @@ const NewSell = ({ onBack, onSubmit }) => {
                       fontWeight: "bold",
                     }}
                   >
-                    Expire Date
+                    Expiry Date
                   </span>
                 }
                 name="date"
@@ -121,7 +121,7 @@ const NewSell = ({ onBack, onSubmit }) => {
             </div>
             <div className="flex justify-between mt-6 mx-6">
               <Button className="bg-primary text-white">Scan Now</Button>
-              <Button className="bg-primary text-white">Add Reword</Button>
+              <Button className="bg-primary text-white">Add Rewords</Button>
             </div>
           </div>
 

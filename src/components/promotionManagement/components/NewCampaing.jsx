@@ -27,6 +27,7 @@ const daysOptions = [
 const NewCampaign = ({ onSave, onCancel }) => {
   const [form] = Form.useForm();
   const [thumbnail, setThumbnail] = useState("");
+  const [uploadedImage, setUploadedImage] = useState([]);
 
   const handleThumbnailChange = ({ file }) => {
     if (file.status === "done" || file.originFileObj) {
@@ -51,6 +52,19 @@ const NewCampaign = ({ onSave, onCancel }) => {
     });
     form.resetFields();
     setThumbnail("");
+  };
+
+  // Image upload validation
+  const beforeUpload = (file) => {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+    if (!isJpgOrPng) {
+      message.error("You can only upload JPG/PNG files!");
+    }
+    return isJpgOrPng || Upload.LIST_IGNORE;
+  };
+
+  const handleUploadChange = ({ fileList }) => {
+    setUploadedImage(fileList);
   };
 
   return (
@@ -154,23 +168,41 @@ const NewCampaign = ({ onSave, onCancel }) => {
           </Form.Item>
         </div>
 
-        <Form.Item label="Thumbnail">
+        <Form.Item name="image" label="Upload Image (JPG/PNG only)">
           <Upload
             listType="picture"
-            beforeUpload={() => false}
-            onChange={handleThumbnailChange}
+            fileList={uploadedImage}
+            beforeUpload={(file) => {
+              // Allow only JPG or PNG
+              const isJpgOrPng =
+                file.type === "image/jpeg" || file.type === "image/png";
+              if (!isJpgOrPng) {
+                message.error("You can only upload JPG/PNG files!");
+              }
+
+              // Limit file size to 2MB
+              const isLt2M = file.size / 1024 / 1024 < 2;
+              if (!isLt2M) {
+                message.error("Image must be smaller than 2MB!");
+              }
+
+              // Only accept file if both conditions are true
+              return isJpgOrPng && isLt2M;
+            }}
+            onChange={handleUploadChange}
+            onRemove={(file) => {
+              setUploadedImage((prev) =>
+                prev.filter((f) => f.uid !== file.uid)
+              );
+            }}
+            maxCount={1}
+            accept=".jpg,.jpeg,.png" // Restrict file picker to JPG/PNG
           >
-            <Button icon={<UploadOutlined />} className="px-3 py-3">
-              Click to Upload
-            </Button>
+            <Button icon={<UploadOutlined />}>Click to Upload</Button>
           </Upload>
-          {thumbnail && (
-            <img
-              src={thumbnail}
-              alt="Thumbnail Preview"
-              className="mt-2 w-32 h-32 object-cover rounded-md"
-            />
-          )}
+          <p className="text-sm text-gray-500 mt-1">
+            Allowed file types: JPG, PNG. Maximum file size: 2MB.
+          </p>
         </Form.Item>
 
         <div className="flex justify-end gap-2">

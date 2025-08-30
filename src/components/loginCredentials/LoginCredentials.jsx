@@ -9,7 +9,6 @@ import {
   Switch,
   Select,
 } from "antd";
-import { useNavigate } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 import { EditOutlined } from "@ant-design/icons";
 import Swal from "sweetalert2";
@@ -51,28 +50,22 @@ const LoginCredentials = () => {
     {
       id: 1,
       name: "Alice Johnson",
-      image: "https://i.ibb.co/8gh3mqPR/Ellipse-48-1.jpg",
-      email: "example@email.com",
-      retailer: 5,
-      sales: "$300",
-      status: "Active",
+      email: "alice@email.com",
+      password: "123456",
       phone: "+1234567890",
-      location: "New York",
-      businessName: "Alice's Store",
       role: "Admin",
+      createdAt: "2025-08-01",
+      status: "Active",
     },
     {
       id: 2,
       name: "John Doe",
-      image: "https://i.ibb.co/8gh3mqPR/Ellipse-48-1.jpg",
       email: "john@email.com",
-      retailer: 3,
-      sales: "$500",
-      status: "Inactive",
+      password: "123456",
       phone: "+9876543210",
-      location: "California",
-      businessName: "John's Shop",
       role: "User",
+      createdAt: "2025-08-05",
+      status: "Inactive",
     },
   ]);
 
@@ -87,8 +80,6 @@ const LoginCredentials = () => {
 
   const [isUserModalVisible, setIsUserModalVisible] = useState(false);
   const [userForm] = Form.useForm();
-
-  const navigate = useNavigate();
 
   // View/Edit User Modal
   const showViewModal = (record) => {
@@ -111,7 +102,7 @@ const LoginCredentials = () => {
       );
       Swal.fire({
         title: "Updated!",
-        text: "Merchant details have been updated successfully.",
+        text: "User details have been updated successfully.",
         icon: "success",
         timer: 1500,
         showConfirmButton: false,
@@ -123,7 +114,7 @@ const LoginCredentials = () => {
   // Add Role
   const handleAddRole = () => {
     roleForm.validateFields().then((values) => {
-      setRoles((prev) => [...prev, values.roleName]); // Add role to dropdown
+      setRoles((prev) => [...prev, values.roleName]);
       Swal.fire({
         title: "Role Added!",
         text: `Role "${values.roleName}" has been successfully added.`,
@@ -141,8 +132,9 @@ const LoginCredentials = () => {
     userForm.validateFields().then((values) => {
       const newUser = {
         id: data.length + 1,
-        ...values,
         status: "Active",
+        createdAt: new Date().toISOString().split("T")[0],
+        ...values,
       };
       setData((prev) => [...prev, newUser]);
       Swal.fire({
@@ -159,11 +151,12 @@ const LoginCredentials = () => {
 
   const columns = [
     { title: "SL", dataIndex: "id", key: "id", align: "center" },
-    { title: "Owner Name", dataIndex: "name", key: "name", align: "center" },
+    { title: "User Name", dataIndex: "name", key: "name", align: "center" },
+    { title: "Email", dataIndex: "email", key: "email", align: "center" },
     {
-      title: "Business Name",
-      dataIndex: "businessName",
-      key: "businessName",
+      title: "Password",
+      dataIndex: "password",
+      key: "password",
       align: "center",
     },
     {
@@ -172,15 +165,13 @@ const LoginCredentials = () => {
       key: "phone",
       align: "center",
     },
-    { title: "Email", dataIndex: "email", key: "email", align: "center" },
+    { title: "Role", dataIndex: "role", key: "role", align: "center" },
     {
-      title: "Location",
-      dataIndex: "location",
-      key: "location",
+      title: "Created At",
+      dataIndex: "createdAt",
+      key: "createdAt",
       align: "center",
     },
-    { title: "Total Sales", dataIndex: "sales", key: "sales", align: "center" },
-    { title: "Role", dataIndex: "role", key: "role", align: "center" },
     { title: "Status", dataIndex: "status", key: "status", align: "center" },
     {
       title: "Action",
@@ -276,7 +267,7 @@ const LoginCredentials = () => {
     <div>
       <div className="flex justify-between items-center mb-4">
         <div>
-          <h1 className="text-[24px] font-bold">Login Credentials</h1>
+          <h1 className="text-[24px] font-bold">User Management</h1>
           <p className="text-[16px] font-normal mt-2">
             Access your account securely with your login credentials.
           </p>
@@ -321,25 +312,19 @@ const LoginCredentials = () => {
         {selectedRecord && (
           <div className="flex flex-col gap-2 w-full border border-primary rounded-md p-4 mt-8 mb-8">
             <p className="text-[22px] font-bold text-primary">
-              Login Credentials
+              User Management
             </p>
             <Form form={viewForm} layout="vertical">
-              <Form.Item name="name" label="Name">
-                <Input />
-              </Form.Item>
-              <Form.Item name="businessName" label="Business Name">
+              <Form.Item name="name" label="User Name">
                 <Input />
               </Form.Item>
               <Form.Item name="email" label="Email">
                 <Input />
               </Form.Item>
-              <Form.Item name="phone" label="Phone">
+              <Form.Item name="password" label="Password">
                 <Input />
               </Form.Item>
-              <Form.Item name="location" label="Location">
-                <Input />
-              </Form.Item>
-              <Form.Item name="sales" label="Total Sales">
+              <Form.Item name="phone" label="Phone Number">
                 <Input />
               </Form.Item>
               <Form.Item name="role" label="Role">
@@ -349,6 +334,12 @@ const LoginCredentials = () => {
                       {role}
                     </Option>
                   ))}
+                </Select>
+              </Form.Item>
+              <Form.Item name="status" label="Select Page Access Control">
+                <Select>
+                  <Option value="Active">Full</Option>
+                  <Option value="Inactive">Dashboard</Option>
                 </Select>
               </Form.Item>
             </Form>
@@ -387,15 +378,8 @@ const LoginCredentials = () => {
         <Form form={userForm} layout="vertical">
           <Form.Item
             name="name"
-            label="Name"
+            label="User Name"
             rules={[{ required: true, message: "Please enter name" }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="businessName"
-            label="Business Name"
-            rules={[{ required: true, message: "Please enter business name" }]}
           >
             <Input />
           </Form.Item>
@@ -407,20 +391,17 @@ const LoginCredentials = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name="phone"
-            label="Phone"
-            rules={[{ required: true, message: "Please enter phone" }]}
+            name="password"
+            label="Password"
+            rules={[{ required: true, message: "Please enter password" }]}
           >
-            <Input />
+            <Input type="password" />
           </Form.Item>
           <Form.Item
-            name="location"
-            label="Location"
-            rules={[{ required: true, message: "Please enter location" }]}
+            name="phone"
+            label="Phone Number"
+            rules={[{ required: true, message: "Please enter phone number" }]}
           >
-            <Input />
-          </Form.Item>
-          <Form.Item name="sales" label="Total Sales">
             <Input />
           </Form.Item>
           <Form.Item
@@ -434,6 +415,12 @@ const LoginCredentials = () => {
                   {role}
                 </Option>
               ))}
+            </Select>
+          </Form.Item>
+          <Form.Item name="status" label="Select Page Access Control">
+            <Select>
+              <Option value="Active">Full</Option>
+              <Option value="Inactive">Dashboard</Option>
             </Select>
           </Form.Item>
         </Form>

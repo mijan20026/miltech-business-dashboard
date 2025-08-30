@@ -1,14 +1,14 @@
-import React from 'react'
-import LoyalityProgramTable from '../../components/loyaltyProgram/LoyalityProgramTable'
-import LoyalityCard from '../../components/loyaltyProgram/LoyalityCard'
+import React from "react";
+import LoyalityProgramTable from "../../components/loyaltyProgram/LoyalityProgramTable";
+import LoyalityCard from "../../components/loyaltyProgram/LoyalityCard";
 
 const LoyaltyProgram = () => {
   return (
     <div>
-        <LoyalityCard />
+      <LoyalityCard />
       <LoyalityProgramTable />
     </div>
-  )
-}
+  );
+};
 
-export default LoyaltyProgram
+export default LoyaltyProgram;

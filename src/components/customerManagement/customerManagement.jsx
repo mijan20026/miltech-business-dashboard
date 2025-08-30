@@ -5,6 +5,7 @@ import { FaTrash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import Swal from "sweetalert2";
 import MarchantIcon from "../../assets/marchant.png";
+import { Rate } from "antd";
 
 const components = {
   header: {
@@ -49,14 +50,7 @@ const CustomerManagement = () => {
       phone: "+1234567890",
       location: "New York",
       businessName: "Alice's Store",
-      feedback: [
-        {
-          product: "Product A",
-          rating: 4,
-          feedback: "Great product!",
-          date: "2025-08-10",
-        },
-      ],
+      feedback: 5,
     },
     {
       id: 2,
@@ -69,14 +63,7 @@ const CustomerManagement = () => {
       phone: "+9876543210",
       location: "California",
       businessName: "John's Shop",
-      feedback: [
-        {
-          product: "Product B",
-          rating: 5,
-          feedback: "Excellent service!",
-          date: "2025-08-12",
-        },
-      ],
+      feedback: 4,
     },
     {
       id: 3,
@@ -89,14 +76,7 @@ const CustomerManagement = () => {
       phone: "+9876543210",
       location: "California",
       businessName: "Sam's Shop",
-      feedback: [
-        {
-          product: "Product C",
-          rating: 3,
-          feedback: "Average experience.",
-          date: "2025-08-15",
-        },
-      ],
+      feedback: 3,
     },
   ]);
 
@@ -166,13 +146,14 @@ const CustomerManagement = () => {
   // Main table columns
   const columns = [
     { title: "SL", dataIndex: "id", key: "id", align: "center" },
-    { title: "Owner Name", dataIndex: "name", key: "name", align: "center" },
-    {
-      title: "Business Name",
-      dataIndex: "businessName",
-      key: "businessName",
-      align: "center",
-    },
+    { title: "Customer ID", dataIndex: "id", key: "id", align: "center" },
+    { title: "Customer Name", dataIndex: "name", key: "name", align: "center" },
+    // {
+    //   title: "Business Name",
+    //   dataIndex: "businessName",
+    //   key: "businessName",
+    //   align: "center",
+    // },
     {
       title: "Phone Number",
       dataIndex: "phone",
@@ -190,30 +171,44 @@ const CustomerManagement = () => {
     { title: "Total Sales", dataIndex: "sales", key: "sales", align: "center" },
     { title: "Status", dataIndex: "status", key: "status", align: "center" },
     {
+      title: "Ratings",
+      dataIndex: "feedback",
+      key: "feedback",
+      align: "center",
+      render: (_, record) => (
+        <Tooltip title="Customer Ratings">
+          <Rate
+            disabled
+            value={record.feedback} // assuming rating is a number from 1 to 5
+            style={{ fontSize: 16, color: "#FFD700" }} // optional styling
+          />
+        </Tooltip>
+      ),
+    },
+    {
       title: "Action",
       key: "action",
       align: "center",
       render: (_, record) => (
-        <div className=" py-[12px] border border-primary rounded-md">
-          <div className="flex- gap-2 ">
-            <Tooltip title="View Details">
-              <button
-                onClick={() => showViewModal(record)}
-                className="border border-primary px-4 py-1 rounded bg-[#D7F4DE] mr-5"
-              >
-                View Details
-              </button>
-            </Tooltip>
-            <Tooltip title="View Ratings">
-              <button
-                onClick={() => showFeedbackModal(record)}
-                className="border border-primary px-4 py-1 rounded bg-[#D7F4DE]"
-              >
-                View Feedback
-              </button>
-            </Tooltip>
-          </div>
+        // <div className=" py-[12px] border border-primary rounded-md">
+        <div className="flex- gap-2 ">
+          <Tooltip title="View Details">
+            <button
+              onClick={() => showViewModal(record)}
+              className="border border-primary px-4 py-1 rounded bg-[#D7F4DE] mr-5"
+            >
+              View Details
+            </button>
+          </Tooltip>
+          {/* <Tooltip title="Customer Ratings">
+              <Rate
+                disabled
+                value={record.rating} // assuming rating is a number from 1 to 5
+                style={{ fontSize: 16, color: "#FFD700" }} // optional styling
+              />
+            </Tooltip> */}
         </div>
+        // </div>
       ),
     },
   ];
@@ -289,9 +284,9 @@ const CustomerManagement = () => {
                 <p>
                   <strong>Name:</strong> {selectedRecord.name}
                 </p>
-                <p>
+                {/* <p>
                   <strong>Business Name:</strong> {selectedRecord.businessName}
-                </p>
+                </p> */}
                 <p>
                   <strong>Email:</strong> {selectedRecord.email}
                 </p>
@@ -311,7 +306,7 @@ const CustomerManagement = () => {
                   Loyalty Points
                 </p>
                 <p>
-                  <strong>Points Balance:</strong> {selectedRecord.name}
+                  <strong>Points Balance:</strong> {selectedRecord.sales}
                 </p>
                 <p>
                   <strong>Tier:</strong> {selectedRecord.businessName}

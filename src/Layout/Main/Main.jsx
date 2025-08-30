@@ -1,35 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
 
 const Main = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsCollapsed((prev) => !prev);
-  };
+  // Auto-collapse below 992px on mount + resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 992) setCollapsed(true);
+      else setCollapsed(false);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <div className="h-screen w-screen flex bg-baseBg overflow-hidden">
+    <div className="h-screen w-screen flex bg-baseBg overflow-auto">
       {/* Sidebar */}
-      <div
-        className={`${
-          isCollapsed ? "w-20" : "w-80"
-        } md:w-80 h-screen border-r-[1px] border-[#3FAE6A] transition-all duration-300`}
-      >
-        <Sidebar />
-      </div>
+      <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
 
       {/* Main Content */}
-      <div className="flex flex-col flex-1 h-screen">
-        <Header toggleSidebar={toggleSidebar} />
-        <div className="bg-[#F6F6F6] h-[calc(100vh-68px)] mt-3">
-          {/* -68px */}
-          <div className="h-full overflow-y-auto bg-baseBg rounded-md p-7 pt-0">
+      <div className="flex-1 flex flex-col h-screen transition-all duration-300 min-w-0">
+        <Header toggleSidebar={() => setCollapsed(!collapsed)} />
+
+        <div className="flex-1 mt-3 min-w-0">
+          <div className="h-full bg-baseBg rounded-md p-7 pt-0 min-w-0">
             {/* Outlet for other dynamic pages */}
-            <div className="mt-6">
-              <Outlet />
+            <div className="mt-6 h-full overflow-auto min-w-0">
+              {/* ✅ This ensures tables or wide content scroll */}
+              <div className="overflow-x-auto overflow-y-auto h-full min-w-0">
+                <Outlet />
+              </div>
             </div>
           </div>
         </div>
