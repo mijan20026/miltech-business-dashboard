@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaCalendarDay, FaDollarSign } from "react-icons/fa";
 import { HiMiniUsers } from "react-icons/hi2";
 import { MdArrowUpward, MdOutlineHome } from "react-icons/md";
@@ -36,6 +36,11 @@ ChartJS.register(
 );
 
 const Home = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState("Last 7 Days");
+
+  const options2 = ["Today", "Last 7 Days", "Last 30 Days", "This Month"];
+
   const data = {
     labels: [
       "Jan",
@@ -113,9 +118,34 @@ const Home = () => {
             <h2 className="text-secondary mt-4 text-[24px] font-bold">
               Statistics
             </h2>
-            <p className="font-medium text-[14px] py-[12px] px-[16px] border border-primary text-secondary rounded-lg">
-              Last 7 Days
-            </p>
+            <div className="relative inline-block w-[150px]">
+              {/* Dropdown Button */}
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-full font-medium text-[14px] py-[12px] px-[16px] border border-primary text-secondary rounded-lg text-left flex justify-between items-center"
+              >
+                {selected}
+                <span className="ml-2">▼</span>
+              </button>
+
+              {/* Dropdown Options */}
+              {isOpen && (
+                <ul className="absolute z-10 w-full bg-white border border-primary rounded-lg mt-1 shadow-lg">
+                  {options2.map((option) => (
+                    <li
+                      key={option}
+                      onClick={() => {
+                        setSelected(option);
+                        setIsOpen(false);
+                      }}
+                      className="cursor-pointer px-4 py-2 text-black hover:bg-primary/10"
+                    >
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 h-auto">

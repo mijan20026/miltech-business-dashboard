@@ -309,7 +309,7 @@ const CustomerManagement = () => {
                   <strong>Points Balance:</strong> {selectedRecord.sales}
                 </p>
                 <p>
-                  <strong>Tier:</strong> {selectedRecord.businessName}
+                  <strong>Tier:</strong> Gold
                 </p>
               </div>
             </div>

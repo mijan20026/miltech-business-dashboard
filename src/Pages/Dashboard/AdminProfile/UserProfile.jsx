@@ -237,7 +237,7 @@ const UserProfile = () => {
               {/* Upload Image */}
               <Form.Item
                 name="image"
-                label="Upload Image (JPG/PNG only)"
+                label="Upload Marchant Logo (JPG/PNG only)"
                 rules={[
                   {
                     required: true,
