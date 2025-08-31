@@ -125,11 +125,11 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         </Link>
       ),
     },
-    {
-      key: "/subscription",
-      icon: renderIcon(SubscriptionManagement, "/subscription"),
-      label: <Link to="/subscription">{collapsed ? "" : "Subscription"}</Link>,
-    },
+    // {
+    //   key: "/subscription",
+    //   icon: renderIcon(SubscriptionManagement, "/subscription"),
+    //   label: <Link to="/subscription">{collapsed ? "" : "Subscription"}</Link>,
+    // },
     // {
     //   key: "/userManagement",
     //   icon: renderIcon(loginCredentials, "/userManagement"),
