@@ -26,13 +26,9 @@ const BarChart = () => {
   // Effect to update chart height based on screen size
   useEffect(() => {
     const updateChartHeight = () => {
-      if (window.innerWidth < 768) {
-        setChartHeight("150px");
-      } else if (window.innerWidth < 1024) {
-        setChartHeight("200px");
-      } else {
-        setChartHeight("250px");
-      }
+      if (window.innerWidth < 768) setChartHeight("150px");
+      else if (window.innerWidth < 1024) setChartHeight("200px");
+      else setChartHeight("250px");
     };
 
     updateChartHeight();
@@ -40,21 +36,15 @@ const BarChart = () => {
     return () => window.removeEventListener("resize", updateChartHeight);
   }, []);
 
-  // Example 7-day data (raw values)
+  // 7-day raw data
   const rawData = [50, 70, 100, 80, 40, 60, 90];
-  const maxValue = Math.max(...rawData);
-
-  // Convert raw values to % of max
-  const percentageData = rawData.map((val) =>
-    ((val / maxValue) * 100).toFixed(2)
-  );
 
   const data = {
     labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     datasets: [
       {
-        label: "Performance",
-        data: percentageData,
+        label: "Weekly Sale",
+        data: rawData, // Use actual values
         backgroundColor: "#3fae6a",
         borderRadius: 0,
         barThickness: 30,
@@ -71,7 +61,8 @@ const BarChart = () => {
       },
       tooltip: {
         callbacks: {
-          label: (context) => `${context.raw} of max`,
+          // Show raw value only
+          label: (context) => `${context.raw}`,
         },
         backgroundColor: "#3fae6a",
         titleColor: "#fff",
@@ -93,13 +84,11 @@ const BarChart = () => {
       },
       y: {
         beginAtZero: true,
-        max: 100,
         grid: {
           color: "#eaeaea",
         },
         ticks: {
           color: "#181818",
-          callback: (value) => `${value}`,
         },
       },
     },
@@ -112,7 +101,7 @@ const BarChart = () => {
           <h2 className="text-secondary mt-4 text-[24px] font-bold">
             Customer Chart
           </h2>
-          <p className=" font-medium text-[14px] py-[12px] px-[16px] border border-primary text-secondary rounded-lg">
+          <p className="font-medium text-[14px] py-[12px] px-[16px] border border-primary text-secondary rounded-lg">
             Last 7 Days
           </p>
         </div>

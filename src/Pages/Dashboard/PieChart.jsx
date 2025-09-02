@@ -8,7 +8,6 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const PieChart = () => {
   const [chartHeight, setChartHeight] = useState("200px");
 
-  // Update chart height based on screen size
   useEffect(() => {
     const updateChartHeight = () => {
       if (window.innerWidth < 768) setChartHeight("150px");
@@ -20,21 +19,16 @@ const PieChart = () => {
     return () => window.removeEventListener("resize", updateChartHeight);
   }, []);
 
-  // 7-day data
+  // 7-day raw data
   const rawData = [50, 70, 100, 80, 40, 60, 90];
-  const maxValue = Math.max(...rawData);
-
-  // Convert to % of max
-  const percentageData = rawData.map((val) =>
-    ((val / maxValue) * 100).toFixed(2)
-  );
+  const total = rawData.reduce((sum, val) => sum + val, 0);
 
   const data = {
     labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     datasets: [
       {
-        label: "Performance % of max",
-        data: percentageData,
+        label: "Weekly Sale",
+        data: rawData, // use actual numbers
         backgroundColor: [
           "#7086FD",
           "#6FD195",
@@ -45,11 +39,31 @@ const PieChart = () => {
           "#FF928A",
         ],
         borderWidth: 1,
-        // This makes it a donut chart
-        cutout: "50%",
-        // weight: [1, 1, 2, 1, 1, 1, 1], // make "Wed" slice thicker
+        cutout: "50%", // donut chart
       },
     ],
+  };
+
+  // Plugin to draw total in center
+  const centerTextPlugin = {
+    id: "centerText",
+    beforeDraw(chart) {
+      const {
+        ctx,
+        chartArea: { width, height },
+      } = chart;
+      ctx.save();
+
+      const totalFontSize = width < 400 ? 16 : width < 768 ? 20 : 24;
+
+      ctx.font = `bold ${totalFontSize}px Arial`;
+      ctx.fillStyle = "#3fae6a";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(total, width / 2, height / 2);
+
+      ctx.restore();
+    },
   };
 
   const options = {
@@ -67,7 +81,8 @@ const PieChart = () => {
       },
       tooltip: {
         callbacks: {
-          label: (context) => `${context.label}: ${context.raw}% of max`,
+          // Show actual value in tooltip
+          label: (context) => `${context.label}: ${context.raw}`,
         },
         backgroundColor: "#3fae6a",
         titleColor: "#fff",
@@ -87,7 +102,7 @@ const PieChart = () => {
         </div>
       </div>
       <div style={{ width: "100%", height: chartHeight }}>
-        <Pie data={data} options={options} />
+        <Pie data={data} options={options} plugins={[centerTextPlugin]} />
       </div>
     </div>
   );
