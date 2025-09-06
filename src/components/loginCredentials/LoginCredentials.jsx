@@ -177,9 +177,10 @@ const LoginCredentials = () => {
       title: "Action",
       key: "action",
       align: "center",
+      width: 150,
       render: (_, record) => (
         <div
-          className="flex gap-0 justify-between align-middle py-[7px] px-[15px] border border-primary rounded-md"
+          className="flex gap-2 justify-between align-middle py-[7px] px-[15px] border border-primary rounded-md"
           style={{ alignItems: "center" }}
         >
           <Tooltip title="View & Update Details">
@@ -290,16 +291,19 @@ const LoginCredentials = () => {
         </div>
       </div>
 
-      <Table
-        dataSource={data}
-        columns={columns}
-        pagination={{ pageSize: 10 }}
-        bordered={false}
-        size="small"
-        rowClassName="custom-row"
-        components={components}
-        className="custom-table"
-      />
+      <div className="overflow-x-auto">
+        <Table
+          dataSource={data}
+          columns={columns}
+          pagination={{ pageSize: 10 }}
+          bordered={false}
+          size="small"
+          rowClassName="custom-row"
+          components={components}
+          className="custom-table"
+          scroll={{ x: "max-content" }}
+        />
+      </div>
 
       {/* View/Edit User Modal */}
       <Modal
@@ -363,6 +367,12 @@ const LoginCredentials = () => {
           >
             <Input placeholder="Enter role name" />
           </Form.Item>
+          <Form.Item name="status" label="Select Page Access Control">
+            <Select>
+              <Option value="Active">Full</Option>
+              <Option value="Inactive">Dashboard</Option>
+            </Select>
+          </Form.Item>
         </Form>
       </Modal>
 
@@ -417,12 +427,12 @@ const LoginCredentials = () => {
               ))}
             </Select>
           </Form.Item>
-          <Form.Item name="status" label="Select Page Access Control">
+          {/* <Form.Item name="status" label="Select Page Access Control">
             <Select>
               <Option value="Active">Full</Option>
               <Option value="Inactive">Dashboard</Option>
             </Select>
-          </Form.Item>
+          </Form.Item> */}
         </Form>
       </Modal>
     </div>

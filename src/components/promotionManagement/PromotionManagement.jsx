@@ -10,9 +10,10 @@ import {
   Select,
   Upload,
   message,
+  Modal,
 } from "antd";
 import { FaEdit } from "react-icons/fa";
-import { IoEyeSharp, IoArrowBack } from "react-icons/io5";
+import { IoArrowBack } from "react-icons/io5";
 import { UploadOutlined } from "@ant-design/icons";
 import Swal from "sweetalert2";
 import MarchantIcon from "../../assets/marchant.png";
@@ -213,10 +214,7 @@ const PromotionManagement = () => {
       align: "center",
       render: (_, record) => (
         <div className="py-[10px] px-[10px] border border-primary rounded-md">
-          <div
-            className="flex gap-2 justify-between align-middle"
-            style={{ alignItems: "center" }}
-          >
+          <div className="flex gap-2 justify-between align-middle">
             <Tooltip title="Edit">
               <button
                 onClick={() => {
@@ -336,30 +334,33 @@ const PromotionManagement = () => {
           </Button>
         </div>
 
-        <Table
-          dataSource={data}
-          columns={columns2}
-          pagination={{ pageSize: 10 }}
-          bordered={false}
-          size="small"
-          rowClassName="custom-row"
-          components={components}
-          className="custom-table"
-        />
+        <div className="overflow-x-auto">
+          <Table
+            dataSource={data}
+            columns={columns2}
+            pagination={{ pageSize: 10 }}
+            bordered={false}
+            size="small"
+            rowClassName="custom-row"
+            components={components}
+            className="custom-table"
+            scroll={{ x: "max-content" }}
+          />
+        </div>
       </div>
     );
   }
 
   return (
     <div className="">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between flex-col md:flex-row gap-4 mb-4">
         <div>
           <h1 className="text-[24px] font-bold">Campaigns List</h1>
           <p className="text-[16px] font-normal mt-2">
             View and manage all your active campaigns in one place.
           </p>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-4 flex-col md:flex-row">
           <Button
             className="bg-primary !text-white hover:!text-secondary hover:!bg-white hover:!border-primary px-[30px] py-[25px] rounded-full text-[18px] font-bold"
             onClick={() => setIsNotifyModalVisible(true)}
@@ -375,217 +376,218 @@ const PromotionManagement = () => {
         </div>
       </div>
 
-      <Table
-        dataSource={data}
-        columns={columns}
-        pagination={{ pageSize: 10 }}
-        bordered={false}
-        size="small"
-        rowClassName="custom-row"
-        components={components}
-        className="custom-table"
-      />
+      <div className="overflow-x-auto">
+        <Table
+          dataSource={data}
+          columns={columns}
+          pagination={{ pageSize: 10 }}
+          bordered={false}
+          size="small"
+          rowClassName="custom-row"
+          components={components}
+          className="custom-table"
+          scroll={{ x: "max-content" }}
+        />
+      </div>
 
       {/* Edit Campaign Modal */}
-      {isEditModalVisible && selectedRecord && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-md w-[600px]">
-            <Form
-              layout="vertical"
-              initialValues={selectedRecord}
-              onFinish={handleEditSave}
+      <Modal
+        title="Edit Campaign"
+        visible={isEditModalVisible}
+        onCancel={handleEditCancel}
+        footer={null}
+        width={600}
+        closable={true}
+      >
+        {isEditModalVisible && selectedRecord && (
+          <Form
+            layout="vertical"
+            initialValues={selectedRecord}
+            onFinish={handleEditSave}
+          >
+            <Form.Item
+              name="promotionName"
+              label="Promotion Name"
+              rules={[{ required: true, message: "Please enter name" }]}
             >
-              <Form.Item
-                name="promotionName"
-                label="Promotion Name"
-                rules={[{ required: true, message: "Please enter name" }]}
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              name="promotionType"
+              label="Promotion Type"
+              rules={[
+                { required: true, message: "Please select promotion type" },
+              ]}
+            >
+              <Select placeholder="Select Promotion Type">
+                <Select.Option value="Discount">Discount</Select.Option>
+                <Select.Option value="BOGO">Buy One Get One</Select.Option>
+                <Select.Option value="Cashback">Cashback</Select.Option>
+                <Select.Option value="Free Shipping">
+                  Free Shipping
+                </Select.Option>
+              </Select>
+            </Form.Item>
+
+            <Form.Item name="customerReach" label="Customer Reach">
+              <Input type="number" />
+            </Form.Item>
+
+            <Form.Item
+              name="customerSegment"
+              label="Customer Segment"
+              rules={[{ required: true, message: "Please select a segment" }]}
+            >
+              <Select placeholder="Select Customer Segment">
+                <Select.Option value="New Customers">
+                  New Customers
+                </Select.Option>
+                <Select.Option value="Returning Customers">
+                  Returning Customers
+                </Select.Option>
+                <Select.Option value="Loyal Customers">
+                  Loyal Customers
+                </Select.Option>
+                <Select.Option value="All Customers">
+                  All Customers
+                </Select.Option>
+              </Select>
+            </Form.Item>
+
+            <Form.Item name="discountPercentage" label="Discount Percentage">
+              <Input type="number" />
+            </Form.Item>
+            <Form.Item name="startDate" label="Start Date">
+              <Input type="date" />
+            </Form.Item>
+            <Form.Item name="endDate" label="End Date">
+              <Input type="date" />
+            </Form.Item>
+
+            <div className="flex gap-2 mt-4">
+              <Button
+                type="default"
+                className="flex-1"
+                onClick={handleEditCancel}
               >
-                <Input />
-              </Form.Item>
-
-              <Form.Item
-                name="promotionType"
-                label="Promotion Type"
-                rules={[
-                  { required: true, message: "Please select promotion type" },
-                ]}
-              >
-                <Select placeholder="Select Promotion Type">
-                  <Select.Option value="Discount">Discount</Select.Option>
-                  <Select.Option value="BOGO">Buy One Get One</Select.Option>
-                  <Select.Option value="Cashback">Cashback</Select.Option>
-                  <Select.Option value="Free Shipping">
-                    Free Shipping
-                  </Select.Option>
-                </Select>
-              </Form.Item>
-
-              <Form.Item name="customerReach" label="Customer Reach">
-                <Input type="number" />
-              </Form.Item>
-
-              <Form.Item
-                name="customerSegment"
-                label="Customer Segment"
-                rules={[{ required: true, message: "Please select a segment" }]}
-              >
-                <Select placeholder="Select Customer Segment">
-                  <Select.Option value="New Customers">
-                    New Customers
-                  </Select.Option>
-                  <Select.Option value="Returning Customers">
-                    Returning Customers
-                  </Select.Option>
-                  <Select.Option value="Loyal Customers">
-                    Loyal Customers
-                  </Select.Option>
-                  <Select.Option value="All Customers">
-                    All Customers
-                  </Select.Option>
-                </Select>
-              </Form.Item>
-
-              <Form.Item name="discountPercentage" label="Discount Percentage">
-                <Input type="number" />
-              </Form.Item>
-              <Form.Item name="startDate" label="Start Date">
-                <Input type="date" />
-              </Form.Item>
-              <Form.Item name="endDate" label="End Date">
-                <Input type="date" />
-              </Form.Item>
-
-              <div className="flex gap-2 mt-4">
-                <Button
-                  type="default"
-                  className="flex-1"
-                  onClick={handleEditCancel}
-                >
-                  Cancel
-                </Button>
-                <Button type="primary" htmlType="submit" className="flex-1">
-                  Save Changes
-                </Button>
-              </div>
-            </Form>
-          </div>
-        </div>
-      )}
+                Cancel
+              </Button>
+              <Button type="primary" htmlType="submit" className="flex-1">
+                Save Changes
+              </Button>
+            </div>
+          </Form>
+        )}
+      </Modal>
 
       {/* New Campaign Modal */}
-      {isNewCampaignModalVisible && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-md w-[1000px]">
-            <NewCampaign
-              onSave={handleAddCampaign}
-              onCancel={() => setIsNewCampaignModalVisible(false)}
+      <Modal
+        title="New Campaign"
+        visible={isNewCampaignModalVisible}
+        onCancel={() => setIsNewCampaignModalVisible(false)}
+        footer={null}
+        width={1000}
+        closable={true}
+      >
+        <NewCampaign
+          onSave={handleAddCampaign}
+          onCancel={() => setIsNewCampaignModalVisible(false)}
+        />
+      </Modal>
+
+      {/* Notification Modal */}
+      <Modal
+        title="Send Notification"
+        visible={isNotifyModalVisible}
+        onCancel={() => setIsNotifyModalVisible(false)}
+        footer={null}
+        width={500}
+        closable={true}
+      >
+        <Form layout="vertical" onFinish={handleSendNotification}>
+          <Form.Item
+            name="segment"
+            label="All customers (that have transacted with this merchant)"
+            rules={[{ required: true, message: "Please select a segment" }]}
+          >
+            <Select placeholder="Choose segment">
+              <Option value="New Customers">New Customers</Option>
+              <Option value="Returning Customers">Returning Customers</Option>
+              <Option value="VIP Customers">VIP Customers</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name="title"
+            label="All customers that have at least x number of points"
+            rules={[{ required: true, message: "Please enter a number" }]}
+          >
+            <Input placeholder="" />
+          </Form.Item>
+
+          <Form.Item
+            name="message"
+            label="Customers located within x km of radius from the merchant location"
+            rules={[{ required: true, message: "Please enter distance/KM" }]}
+          >
+            <Input placeholder="" />
+          </Form.Item>
+
+          <Form.Item
+            name="additionalInfo"
+            label="Promotion/discount message"
+            rules={[{ required: false }]}
+          >
+            <Input.TextArea
+              placeholder="Enter additional information here"
+              autoSize={{ minRows: 3, maxRows: 6 }}
             />
+          </Form.Item>
+
+          <Form.Item name="image" label="Upload Image (JPG/PNG only)">
+            <Upload
+              listType="picture"
+              fileList={uploadedImage}
+              beforeUpload={(file) => {
+                const isJpgOrPng =
+                  file.type === "image/jpeg" || file.type === "image/png";
+                if (!isJpgOrPng)
+                  message.error("You can only upload JPG/PNG files!");
+                const isLt2M = file.size / 1024 / 1024 < 2;
+                if (!isLt2M) message.error("Image must smaller than 2MB!");
+                return isJpgOrPng && isLt2M;
+              }}
+              onChange={handleUploadChange}
+              onRemove={(file) =>
+                setUploadedImage((prev) =>
+                  prev.filter((f) => f.uid !== file.uid)
+                )
+              }
+              maxCount={1}
+              accept=".jpg,.jpeg,.png"
+            >
+              <Button icon={<UploadOutlined />}>Click to Upload</Button>
+            </Upload>
+            <p className="text-sm text-gray-500 mt-1">
+              Allowed file types: JPG, PNG. Maximum file size: 2MB.
+            </p>
+          </Form.Item>
+
+          <div className="flex gap-2 mt-12">
+            <Button
+              type="default"
+              className="flex-1"
+              onClick={() => setIsNotifyModalVisible(false)}
+            >
+              Cancel
+            </Button>
+            <Button type="primary" htmlType="submit" className="flex-1">
+              Send
+            </Button>
           </div>
-        </div>
-      )}
-
-      {/* Notify Modal */}
-      {isNotifyModalVisible && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-md w-[500px]">
-            <h2 className="text-xl font-bold mb-4">Send Notification</h2>
-            <Form layout="vertical" onFinish={handleSendNotification}>
-              {/* Segment Dropdown */}
-              <Form.Item
-                name="segment"
-                label="All customers (that have transacted with this merchant)"
-                rules={[{ required: true, message: "Please select a segment" }]}
-              >
-                <Select placeholder="Choose segment">
-                  <Option value="New Customers">New Customers</Option>
-                  <Option value="Returning Customers">
-                    Returning Customers
-                  </Option>
-                  <Option value="VIP Customers">VIP Customers</Option>
-                </Select>
-              </Form.Item>
-
-              {/* Title Field */}
-              <Form.Item
-                name="title"
-                label="All customers that have at least x number of points"
-                rules={[{ required: true, message: "Please enter a number" }]}
-              >
-                <Input placeholder="" />
-              </Form.Item>
-
-              {/* Message Field */}
-              <Form.Item
-                name="message"
-                label="Customers located within x km of radius from the merchant location"
-                rules={[
-                  { required: true, message: "Please enter distance/KM" },
-                ]}
-              >
-                <Input placeholder="" />
-              </Form.Item>
-
-              {/* Additional Text Field */}
-              <Form.Item
-                name="additionalInfo"
-                label="Promotion/discount message"
-                rules={[{ required: false, message: "Optional information" }]}
-              >
-                <Input.TextArea
-                  placeholder="Enter additional information here"
-                  autoSize={{ minRows: 3, maxRows: 6 }}
-                />
-              </Form.Item>
-
-              {/* Image Upload Field */}
-              <Form.Item name="image" label="Upload Image (JPG/PNG only)">
-                <Upload
-                  listType="picture"
-                  fileList={uploadedImage}
-                  beforeUpload={(file) => {
-                    const isJpgOrPng =
-                      file.type === "image/jpeg" || file.type === "image/png";
-                    if (!isJpgOrPng) {
-                      message.error("You can only upload JPG/PNG files!");
-                    }
-                    const isLt2M = file.size / 1024 / 1024 < 2;
-                    if (!isLt2M) {
-                      message.error("Image must smaller than 2MB!");
-                    }
-                    return isJpgOrPng && isLt2M;
-                  }}
-                  onChange={handleUploadChange}
-                  onRemove={(file) => {
-                    setUploadedImage((prev) =>
-                      prev.filter((f) => f.uid !== file.uid)
-                    );
-                  }}
-                  maxCount={1}
-                  accept=".jpg,.jpeg,.png"
-                >
-                  <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                </Upload>
-                <p className="text-sm text-gray-500 mt-1">
-                  Allowed file types: JPG, PNG. Maximum file size: 2MB.
-                </p>
-              </Form.Item>
-
-              <div className="flex gap-2 mt-12">
-                <Button
-                  type="default"
-                  className="flex-1"
-                  onClick={() => setIsNotifyModalVisible(false)}
-                >
-                  Cancel
-                </Button>
-                <Button type="primary" htmlType="submit" className="flex-1">
-                  Send
-                </Button>
-              </div>
-            </Form>
-          </div>
-        </div>
-      )}
+        </Form>
+      </Modal>
     </div>
   );
 };

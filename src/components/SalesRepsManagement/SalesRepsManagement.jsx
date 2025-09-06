@@ -161,8 +161,8 @@ const SalesRepsManagementTable = () => {
         <h1 className="text-[24px] font-bold">Today’s Sell</h1>
       </div>
 
-      <div className="flex justify-between items-center gap-4 mb-4">
-        <div className="flex gap-2">
+      <div className="flex flex-row items-start justify-between gap-4 mb-4">
+        <div className="flex flex-col md:flex-row gap-2">
           <Input
             placeholder="Search by Customer Name or Card ID"
             style={{ width: 300 }}
@@ -191,16 +191,18 @@ const SalesRepsManagementTable = () => {
         </Button>
       </div>
 
-      <Table
-        dataSource={filteredData}
-        columns={columns}
-        pagination={{ pageSize: 10 }}
-        bordered={false}
-        size="small"
-        rowClassName="custom-row"
-        components={components}
-        className="custom-table"
-      />
+      <div className="overflow-x-auto">
+        <Table
+          dataSource={filteredData}
+          columns={columns}
+          pagination={{ pageSize: 10 }}
+          bordered={false}
+          size="small"
+          rowClassName="custom-row"
+          className="custom-table"
+          scroll={{ x: "max-content" }}
+        />
+      </div>
     </div>
   );
 };

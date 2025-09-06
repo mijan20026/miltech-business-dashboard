@@ -41,11 +41,12 @@ const CustomerManagement = () => {
   const [data, setData] = useState([
     {
       id: 1,
+      customerID: 25,
       name: "Alice Johnson",
       image: "https://i.ibb.co/8gh3mqPR/Ellipse-48-1.jpg",
       email: "example@email.com",
       retailer: 5,
-      sales: "$300",
+      sales: "300",
       status: "Active",
       phone: "+1234567890",
       location: "New York",
@@ -54,11 +55,12 @@ const CustomerManagement = () => {
     },
     {
       id: 2,
+      customerID: 29,
       name: "John Doe",
       image: "https://i.ibb.co/8gh3mqPR/Ellipse-48-1.jpg",
       email: "john@email.com",
       retailer: 3,
-      sales: "$500",
+      sales: "500",
       status: "Inactive",
       phone: "+9876543210",
       location: "California",
@@ -67,11 +69,12 @@ const CustomerManagement = () => {
     },
     {
       id: 3,
+      customerID: 22,
       name: "Sam Smith",
       image: "https://i.ibb.co/8gh3mqPR/Ellipse-48-1.jpg",
       email: "sam@email.com",
       retailer: 3,
-      sales: "$500",
+      sales: "500",
       status: "Active",
       phone: "+9876543210",
       location: "California",
@@ -146,7 +149,12 @@ const CustomerManagement = () => {
   // Main table columns
   const columns = [
     { title: "SL", dataIndex: "id", key: "id", align: "center" },
-    { title: "Customer ID", dataIndex: "id", key: "id", align: "center" },
+    {
+      title: "Customer ID",
+      dataIndex: "customerID",
+      key: "customerID",
+      align: "center",
+    },
     { title: "Customer Name", dataIndex: "name", key: "name", align: "center" },
     // {
     //   title: "Business Name",
@@ -215,18 +223,21 @@ const CustomerManagement = () => {
 
   // Filtered data based on search input
   const filteredData = data.filter((item) => {
-    const search = searchText.toLowerCase();
-    return (
-      item.id.toString().includes(search) ||
-      item.name.toLowerCase().includes(search) ||
-      item.phone.toLowerCase().includes(search) ||
-      item.email.toLowerCase().includes(search)
-    );
+    const query = searchText.trim().toLowerCase();
+
+    // convert id to string, compare against the raw search (no lowercasing numbers)
+    const idMatch = item.customerID.toString().includes(searchText.trim());
+
+    const nameMatch = item.name.toLowerCase().includes(query);
+    const phoneMatch = item.phone.toLowerCase().includes(query);
+    const emailMatch = item.email.toLowerCase().includes(query);
+
+    return idMatch || nameMatch || phoneMatch || emailMatch;
   });
 
   return (
     <div>
-      <div className="flex justify-between items-end">
+      <div className="flex justify-between flex-col md:flex-row md:items-end">
         {/* Header */}
         <div className="flex justify-between items-center mb-4 ">
           <div>
@@ -238,27 +249,33 @@ const CustomerManagement = () => {
         </div>
 
         {/* Search Bar */}
-        <div className="mb-4">
+        <div className="mb-4 flex gap-4">
           <Input
             placeholder="Search by Customer ID, Name, Phone or Email"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             className="w-96"
           />
+          <Button
+            className="bg-primary text-white hover:!text-black"
+            // onClick={exportToCSV}
+          >
+            Export
+          </Button>
         </div>
       </div>
 
       {/* Customer Table */}
-      <div className="">
+      <div className="overflow-x-auto">
         <Table
           dataSource={filteredData}
           columns={columns}
           pagination={{ pageSize: 10 }}
           bordered={false}
           size="small"
-          rowClassName="custom-row"
-          components={components}
-          className="custom-table"
+          rowKey="id" // <- explicit key
+          className="custom-table" // styling handled by CSS
+          scroll={{ x: "max-content" }}
         />
       </div>
 

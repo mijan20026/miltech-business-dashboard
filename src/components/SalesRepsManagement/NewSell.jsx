@@ -1,5 +1,13 @@
 import React from "react";
-import { Button, Form, Input, InputNumber, Select, DatePicker } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Select,
+  DatePicker,
+  Space,
+} from "antd";
 import { IoEyeSharp, IoArrowBack } from "react-icons/io5";
 
 const { Option } = Select;
@@ -7,6 +15,11 @@ const { Option } = Select;
 const NewSell = ({ onBack, onSubmit }) => {
   const handleSubmit = (values) => {
     onSubmit(values);
+  };
+
+  const handleFindCard = () => {
+    // Add your find card logic here
+    console.log("Find Card button clicked");
   };
 
   return (
@@ -35,14 +48,23 @@ const NewSell = ({ onBack, onSubmit }) => {
                       fontWeight: "bold",
                     }}
                   >
-                    Card ID
+                    Find Customer by Card ID
                   </span>
                 }
                 name="cardId"
-                // rules={[{ required: true }]}
               >
-                <Input />
+                <Space.Compact style={{ width: "100%" }}>
+                  <Input style={{ width: "70%" }} />
+                  <Button
+                    type="primary"
+                    style={{ width: "30%" }}
+                    onClick={handleFindCard}
+                  >
+                    Find
+                  </Button>
+                </Space.Compact>
               </Form.Item>
+
               <Form.Item
                 label={
                   <span
@@ -56,7 +78,6 @@ const NewSell = ({ onBack, onSubmit }) => {
                   </span>
                 }
                 name="availablePoint"
-                // rules={[{ required: true }]}
               >
                 <Input />
               </Form.Item>
@@ -73,7 +94,6 @@ const NewSell = ({ onBack, onSubmit }) => {
                   </span>
                 }
                 name="totalAmount"
-                // rules={[{ required: true }]}
               >
                 <InputNumber min={0} style={{ width: "100%" }} />
               </Form.Item>
@@ -121,7 +141,7 @@ const NewSell = ({ onBack, onSubmit }) => {
             </div>
             <div className="flex justify-between mt-6 mx-6">
               <Button className="bg-primary text-white">Scan Now</Button>
-              <Button className="bg-primary text-white">Add Rewords</Button>
+              <Button className="bg-primary text-white">Add Rewards</Button>
             </div>
           </div>
 
