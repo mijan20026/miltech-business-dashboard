@@ -236,7 +236,7 @@ const CustomerManagement = () => {
   });
 
   return (
-    <div>
+    <div className="mt-4">
       <div className="flex justify-between flex-col md:flex-row md:items-end">
         {/* Header */}
         <div className="flex justify-between items-center mb-4 ">

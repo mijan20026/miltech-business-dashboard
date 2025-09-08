@@ -310,7 +310,7 @@ const PromotionManagement = () => {
   // Full-page view
   if (selectedRecord && !isEditModalVisible) {
     return (
-      <div className="">
+      <div className="mt-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center mb-4 gap-6">
             <Button
@@ -352,7 +352,7 @@ const PromotionManagement = () => {
   }
 
   return (
-    <div className="">
+    <div className="mt-4">
       <div className="flex justify-between flex-col md:flex-row gap-4 mb-4">
         <div>
           <h1 className="text-[24px] font-bold">Campaigns List</h1>

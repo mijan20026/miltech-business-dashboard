@@ -100,7 +100,7 @@ const Home = () => {
   };
 
   return (
-    <div className="p-2 md:p-4 space-y-4 md:space-y-6">
+    <div className="p-2 md:p-4 space-y-4 md:space-y-6 mt-4">
       <div className="flex flex-col xl:flex-row gap-10 rounded-lg">
         {/* Pie Chart Section */}
         <div className="flex-1 border border-primary bg-[#D7F4DE] rounded-lg p-6">

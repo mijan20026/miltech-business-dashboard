@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Form,
@@ -12,7 +12,21 @@ import { IoEyeSharp, IoArrowBack } from "react-icons/io5";
 
 const { Option } = Select;
 
+const giftCardsData = [
+  { id: 1, name: "Gift Card #1234", points: 500 },
+  { id: 2, name: "Gift Card #5678", points: 300 },
+  { id: 3, name: "Gift Card #9012", points: 700 },
+];
+
 const NewSell = ({ onBack, onSubmit }) => {
+  const [selectedCards, setSelectedCards] = useState([]);
+
+  const toggleSelect = (id) => {
+    setSelectedCards((prev) =>
+      prev.includes(id) ? prev.filter((cardId) => cardId !== id) : [...prev, id]
+    );
+  };
+
   const handleSubmit = (values) => {
     onSubmit(values);
   };
@@ -129,11 +143,23 @@ const NewSell = ({ onBack, onSubmit }) => {
               >
                 <DatePicker style={{ width: "100%" }} />
               </Form.Item>
-              <div className="flex flex-col items-center border border-primary rounded p-4 bg-white">
-                <h1 className="text-[18px] font-bold">Gift Card #1234</h1>
-                <p className="text-[18px] font-normal">
-                  Points Available 500 Points
-                </p>
+              <div className="flex flex-wrap gap-4">
+                {giftCardsData.map((card) => (
+                  <div
+                    key={card.id}
+                    onClick={() => toggleSelect(card.id)}
+                    className={`flex flex-col items-center border rounded p-4 cursor-pointer ${
+                      selectedCards.includes(card.id)
+                        ? "border-primary bg-blue-100"
+                        : "border-primary bg-white"
+                    }`}
+                  >
+                    <h1 className="text-[18px] font-bold">{card.name}</h1>
+                    <p className="text-[18px] font-normal">
+                      Available {card.points} Points
+                    </p>
+                  </div>
+                ))}
               </div>
               <Button className="w-full bg-primary text-white mt-6 text-[16px] font-bold p-5">
                 Apply Gift Card

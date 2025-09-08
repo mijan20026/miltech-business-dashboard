@@ -51,7 +51,7 @@ const Header = ({ toggleSidebar, isMobile }) => {
           </button>
         )}
         <h2 className="font-bold text-xl text-secondary">
-          Super Admin Dashboard
+          Super Admin Dashboard <span className="text-primary">(Premium Plan)</span>
         </h2>
       </div>
 

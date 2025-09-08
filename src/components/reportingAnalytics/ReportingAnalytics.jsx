@@ -287,7 +287,7 @@ export default function MonthlyStatsChart() {
   ];
 
   return (
-    <div style={{ width: "100%", padding: "1rem" }}>
+    <div className="mt-4" style={{ width: "100%", padding: "1rem" }}>
       {/* From -> To Month Dropdowns */}
       <div
         style={{

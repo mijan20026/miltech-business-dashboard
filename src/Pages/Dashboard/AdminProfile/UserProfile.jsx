@@ -237,7 +237,7 @@ const UserProfile = () => {
               {/* Upload Image */}
               <Form.Item
                 name="image"
-                label="Upload Marchant Logo (JPG/PNG only)"
+                label="(JPG/PNG only) Max upload size: 2 MB"
                 rules={[
                   {
                     required: true,
