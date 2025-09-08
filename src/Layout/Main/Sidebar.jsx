@@ -95,7 +95,9 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
       key: "/loyaltyProgram",
       icon: renderIcon(People, "/loyaltyProgram"),
       label: (
-        <Link to="/loyaltyProgram">{collapsed ? "" : "Loyalty Program"}</Link>
+        <Link to="/loyaltyProgram">
+          {collapsed ? "" : "Point & Tier System"}
+        </Link>
       ),
     },
     {
